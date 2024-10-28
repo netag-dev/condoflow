@@ -1,0 +1,138 @@
+
+::ng-deep .p-tabmenu-nav a {
+    color: #9a1818; 
+   font-weight:600;
+  
+  }
+  
+  ::ng-deep .p-tabmenu-nav a.p-tabmenuitem-link {
+    border: 1px solid #ccc; 
+  }
+  
+  ::ng-deep .p-tabmenu-nav a.p-tabmenuitem-link.p-highlight {
+    background-color: #007ad9; 
+    color: #fff; 
+  }
+  
+  ::ng-deep .custom-menubar .p-menubar-button .pi.pi-bars {
+    color: #9a1818 !important; 
+    background-color: transparent; 
+  }
+  
+  ::ng-deep .custom-menubar .p-menubar-button {
+    background-color: #9a1818 !important; 
+  }  
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+@media (max-width: 768px){
+
+    .img-logo{
+        height: 40px;
+        
+   }
+    
+    .user-info {
+        .user-name {
+          font-size: 6px; 
+        }
+        .logout-button {
+          font-size: 5px;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+      }
+}
+
+.emergency-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  
+    button {
+      pButton {
+        width: 100px; 
+        padding: 5px; 
+        margin: 5px; 
+        font-size: 12px; 
+        text-align: center; 
+  
+        img {
+          height: 30px;
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      flex-wrap: wrap; 
+  
+      button {
+        pButton {
+          width: 80px; 
+          font-size: 10px; 
+          margin: 5px; 
+        }
+      }
+    }
+  }
+  
+  
+
+.layout-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; 
+    background-color: #ffffff; 
+    padding: 10px; 
+    border-top: 1px solid #ddd; 
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.logout-button {
+    background-color: #f44336; /* Cor de fundo do botão */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f; /* Cor do botão ao passar o mouse */
+}

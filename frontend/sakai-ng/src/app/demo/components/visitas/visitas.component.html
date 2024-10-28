@@ -1,0 +1,152 @@
+<p-menubar class="menu-bar custom-menubar" [model]="items">
+    <ng-template pTemplate="start">
+        <img src="assets/demo/images/login/8.png" alt="Image" height="70" class="mb-1">
+    </ng-template>
+    <ng-template pTemplate="item" let-item let-root="root">       
+        <a style="margin-top: 20px;margin-left:20px;color: #5e5a5a;text-transform: uppercase;" pRipple class="flex align-items-center p-menuitem-link">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="total" />
+            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+        </a>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="user-info">
+            <img src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000" alt="User Profile" class="user-avatar">
+            <span class="user-name"> {{ userEmail }} </span>
+            <button pButton type="button" label="Terminar Sessão" (click)="logout()" icon="pi pi-sign-out" class="logout-button"></button>
+        </div>
+    </ng-template>
+</p-menubar>
+
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+						
+			<div style="display: flex;align-items: center;gap:10px">  
+				
+			</div>	
+			<div style="margin: 30px;"> 
+				
+			<p-table [value]="visitantes" *ngIf="!isNewDiv" dataKey="id_visitante" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['id_visitante', 'nome_visitante', 'telefone_visitante', 'bi_pessoa', 'endereco_id', 'status_id', 'status']" >
+				<ng-template pTemplate="caption">
+				  <div class="flex justify-content-between flex-column sm:flex-row">
+					<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Visitantes </h2>
+			 <p style="text-transform: uppercase;" class="text-gray-00"> Total de Visitantes: <span style="font-weight:500;"> {{ visitantes.length }}  </span>  </p>
+					<button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary"> <i class="pi pi-download mr-2"></i> </button>
+				 
+					<span class="p-input-icon-left mb-2">
+					  <i class="pi pi-search"></i>
+					  <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar Visitante" class="w-full" />
+					</span>
+
+				  </div>
+				</ng-template>
+				<ng-template *ngIf="!isNewDiv" pTemplate="header">
+				  <tr>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Foto
+						<p-columnFilter type="text" field="id_visitante" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Nome
+						<p-columnFilter type="text" field="nome_visitante" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Apelido 
+						<p-columnFilter type="text" field="apelido_visitante" display="menu" placeholder="Pesquisar por telefone"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 14rem">
+					  <div class="flex justify-content-between align-items-center">
+						Contacto
+						<p-columnFilter type="text" field="contacto_visitante" display="menu" placeholder="Pesquisar por bilhete de identidade"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 10rem">
+					  <div class="flex justify-content-between align-items-center">
+						Bilhete
+						<p-columnFilter type="text" field="bilhete_visitante" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+					  </div>
+					</th>
+					  <th style="min-width: 10rem">
+						<div class="flex justify-content-between align-items-center">
+						  Estado
+						  <p-columnFilter type="text" field="estado" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+						</div>
+					  </th>
+					
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Ações
+						<p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+					  </div>
+					</th>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-relative>
+					<tr>
+						<td>
+                            <img style="border-radius: 5%;" *ngIf="relative.imagem_do_visitante" [src]="'http://127.0.0.1:5000/visitantes/' + relative.imagem_do_visitante"
+                                 alt="Imagem do Visitante"
+                                 width="100"
+                                 height="100"
+                                 (click)="openLightbox(getImageIndex(relative.imagem_do_visitante))" />
+                            <span *ngIf="!relative.imagem_do_visitante"> Não inseriu foto. </span>
+                        </td>
+						<td> {{ relative.nome_visitante }} </td>
+						<td><span class="image-text ml-2"> {{ relative.apelido_visitante }} </span></td>
+						<td><span class="image-text ml-2"> {{ relative.contacto_visitante }} </span></td>
+						<td> {{ relative.bilhete_visitante }} </td>
+                        <td [ngStyle]="{'color': (isAutorizado(relative.estado) ? 'green' : (isNotAutorizado(relative.estado) ? 'red' : ''))}" style="text-transform: uppercase;font-weight:700;"> {{ relative.estado }} </td>
+						<td>
+						<button pButton class="mr-2 p-button-success" (click)="autorizarEntrada(relative.id_visitante)" title="Autorizar entrar"><i class="pi pi-check"></i></button>
+							
+							<p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+								<div class="col-12">
+									<div class="card">
+										<div class="p-fluid p-formgrid grid">
+											<div class="field col-12 md:col-4">
+												<label htmlFor="firstname2"> Nome </label>
+												<input class="text-gray-800" pInputText [(ngModel)]="relative.nome_pessoa" id="firstname2" placeholder="" type="text"/>
+											</div>
+											<!-- Other input fields -->
+										</div>
+									</div>
+									<p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+								</div>
+							</p-dialog>
+							<button pButton (click)="eliminarPessoa(relative.id_visitante)" title="Rejeitar a entrada" class="p-button-danger"><i class="pi pi-ban"></i></button>
+						</td>
+					</tr>
+				</ng-template>
+				
+				
+				<ng-template pTemplate="emptymessage">
+				  <tr>
+					<td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhum visitante encontrado. </span>  </td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+				  <tr>
+					<td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+				  </tr>
+				</ng-template>
+			  </p-table>
+			</div>
+	</div>	 
+</div>
+</div>
+
+<div class="layout-footer">
+    <span style="color:#a31e1e;font-weight: 900;font-size:14px;text-transform: uppercase;" 
+    class="font-medium ml-2 text-gray-500"> Condoflow 2024 </span>
+ </div>
+
+	

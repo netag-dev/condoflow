@@ -1,0 +1,29 @@
+<div class="layout-topbar bg-red-700">
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/demo/images/login/6.png" style="height: 60px;"  alt="logo">  
+    </a>
+
+    <button #menubutton class="p-link text-white layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link text-white layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+            
+        <a style="color:white;line-height: 3;font-weight:100;font-size: 1.3em;" class="text-gray-200" > {{ userEmail }} </a>
+        
+        <button class="p-link layout-topbar-button text-white" [routerLink]="['/my-profile']">
+            <i class="pi pi-user"></i>
+            <span> Meu Perfil </span>
+        </button>
+  
+        <button (click)="logout()" class="p-link text-white layout-topbar-button">
+            <i class="pi pi-sign-out"></i>
+            <span> Terminar sessão </span>
+        </button>
+    </div>
+  
+</div>

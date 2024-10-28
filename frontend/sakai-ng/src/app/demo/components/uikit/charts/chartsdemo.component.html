@@ -1,0 +1,121 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Vagas designadas </h2>
+          
+			<div class="col-8" *ngIf="isNewDiv">
+                <div class="card">
+					<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Nova Vaga </h2>	
+					<hr>
+                <div class="field col-6 md:col-4"> 
+					<input pInputText class="ng-invalid ng-dirty" [(ngModel)]="value" style="width: 50vh;height:5.5vh;" type="text" placeholder="Número de vagas">
+                </div>
+
+				<div class="field col-6 md:col-4">
+					<label class="text-gray-500" for=""> Selecione a unidade:* </label>
+					<select style="width:50vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;">
+					   <option >  </option>
+					  
+						</select>
+			   
+			   </div>	
+				
+				
+				<div class="field col-6 md:col-4">
+						 <label class="text-gray-500" for=""> Selecione a Localização do bloco:* </label>
+                         <select style="width:50vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;">
+							<option >  </option>
+						   
+							 </select>
+					
+                    </div>
+                    
+		
+					<div class="field col-6 md:col-4">
+						<button pButton class="p-button-rounded p-button-success" style="text-transform: uppercase;" label="Salvar"></button>
+						
+					</div>
+					 
+					
+		
+				 </div>
+
+
+            </div>
+
+            <p-table  [value]="" dataKey="id_pessoa" [rows]="10">
+				<ng-template pTemplate="caption">
+					<div class="flex justify-content-between flex-column sm:flex-row">
+						<button pButton (click)="isNewDiv = !isNewDiv" label="Vaga designada" style="text-transform: uppercase;" class="p-button-success mb-2" icon="pi pi-plus" ></button>
+						<span class="p-input-icon-left mb-2">
+							<i class="pi pi-search"></i>
+							<input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)" placeholder="Pesquisar vagas designadas" class="w-full"/>
+						</span>
+					</div>
+				</ng-template>
+				<ng-template *ngIf="!isNewDiv" pTemplate="header">
+					<tr>	
+					
+						<th style="min-width: 10rem">
+							<div class="flex justify-content-between align-items-center">
+							Número de vagas
+								<p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
+							</div>
+						</th>
+
+                        <th style="min-width: 10rem">
+							<div class="flex justify-content-between align-items-center">
+							 Localização do Bloco
+							</div>
+						</th>
+
+						<th style="min-width: 12rem">
+							<div class="flex justify-content-between align-items-center">
+								Acções
+								
+							</div>
+						</th>
+						
+					
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-customer>
+					<tr>
+						<td>
+							
+						</td>
+						<td>
+							<span class="image-text ml-2">  </span>
+						</td>
+						<td>
+							<span class="image-text ml-2">  </span>
+						</td>
+						<td>
+						
+						</td>
+						<td>
+						
+						</td>
+						<td>
+						<button pButton class="mr-2 p-button-success"> <i class="pi pi-pencil"></i> </button>	
+						<button pButton class="p-button-warning"> <i class="pi pi-trash"></i> </button>
+						</td>
+
+						
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage">
+					<tr>
+						<td colspan="8"> Nenhum espaço encontrado. </td>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+					<tr>
+						<td colspan="8"> Está processando, por favor aguarde! </td>
+					</tr>
+				</ng-template>
+    		</p-table>
+
+         </div>
+    </div>
+</div>

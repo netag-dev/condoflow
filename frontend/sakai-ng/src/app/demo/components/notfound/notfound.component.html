@@ -1,0 +1,21 @@
+<div style=" background-image: url('assets/demo/images/login/background.jpg');background-size: cover;background-position: center;min-height: 100vh;display: flex;align-items: center;justify-content: center;" class="login-container"> 
+    <div class="flex flex-column align-items-center justify-content-center">
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, rgba(33, 150, 243, 0.4) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8 flex flex-column align-items-center" style="border-radius:53px">
+                <span class="text-red-400 font-bold text-7xl">404</span>
+                <h1 class="text-900 text-red-400 font-bold text-3xl lg:text-5xl mb-2">Página não encontrada! </h1>
+                <div class="text-600 mb-5 text-red-400"> Opa, o sistema não encontrou a página. </div>
+                         
+                <a [routerLink]="['/auth/login']" class="w-full flex align-items-center mb-5 py-5 border-300 border-bottom-1">
+                    <span class="flex justify-content-center align-items-center bg-gray-500 border-round" style="height:3.5rem; width:3.5rem;">
+                        <i class="pi pi-fw pi-arrow-left text-50 text-2xl"></i>
+                    </span>
+                    <span class="ml-4 flex flex-column">
+                        <span style="text-transform: uppercase;font-weight: 900;" class="text-900 text-gray-500 lg:text-xl font-medium mb-0"> Clique aqui para voltar. </span>
+                        </span>
+                        
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

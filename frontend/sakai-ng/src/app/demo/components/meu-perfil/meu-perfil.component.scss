@@ -1,0 +1,42 @@
+.layout-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; 
+    background-color: #ffffff; 
+    padding: 10px; 
+    border-top: 1px solid #ddd; 
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.logout-button {
+    background-color: #f44336; /* Cor de fundo do botão */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f; /* Cor do botão ao passar o mouse */
+}

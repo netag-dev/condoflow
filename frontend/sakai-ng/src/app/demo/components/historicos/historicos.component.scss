@@ -1,0 +1,38 @@
+.accordion-container {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.accordion-title {
+    color: #666; 
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.accordion-header-custom ::ng-deep .p-accordion-header .p-accordion-header-link {
+    background-color: #f0f0f0 !important; 
+    color: #060303 !important;
+    text-transform:capitalize;
+}
+
+.accordion-header-custom ::ng-deep .p-accordion-header .p-accordion-header-link:hover {
+    background-color: #e0e0e0 !important;
+}
+
+.accordion-tab-header {
+    color: #333 !important;
+}
+
+
+.layout-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ocupa toda a largura da página */
+    background-color: #ffffff; /* Cor de fundo do rodapé */
+    padding: 10px; /* Espaçamento interno do rodapé */
+    border-top: 1px solid #ddd; /* Adicione uma borda superior opcional */
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); 
+}

@@ -1,0 +1,175 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+			
+			
+			<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Áreas comuns </h2>
+			 <p style="text-transform: uppercase;" class="text-gray-800"> Total de áreas comuns: <span style="font-weight:500;"> {{ areaReservas.length }} </span>  </p>
+			 
+			 <div class="col-12" *ngIf="isNewDiv">
+				<div class="card">
+					<h2 class="text-gray-600"> Áreas comuns </h2> <hr>
+					<div class="p-fluid p-formgrid grid">
+						
+
+                        <div class="field col-12 md:col-4">
+							<label class="text-gray-700" for="Bloco"> Selecione o Bloco: * </label>
+							
+						<!-- <select style="width:37vh;height:5.3vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="area_reserva.bloco_id">
+						<option *ngFor="let bloco of blocos;" [value]="bloco.id_bloco"> {{ bloco.nome_bloco }}</option>
+						</select> -->
+
+							 <p-dropdown 
+					[options]="blocos" 
+					[(ngModel)]="area_reserva.bloco_id" 
+					optionLabel="nome_bloco" 
+					optionValue="id_bloco"
+					placeholder="Selecione o bloco" />
+                         </div>
+
+
+						 <div class="field col-6 md:col-4">
+							<span class="p-float-label">
+								<textarea id="float-input" [(ngModel)]="area_reserva.descricao" rows="8" cols="56" pInputTextarea></textarea>
+								<label for="float-input" > Descrição </label>
+							</span>
+							</div>
+						
+						
+						<div class="col-12 md:col-6">
+						 <button pButton (click)="addAreaReserva()" class="p-button-rounded p-button-success" style="text-transform: uppercase;" label="Salvar"></button>
+						</div>
+												 
+					 	</div>
+				</div>
+			</div>
+		
+			<div style="display: flex;align-items: center;gap:10px">  
+            <button [loading]="loading[0]" (click)="toggleNewDiv()" (click)="load(0)" pButton label="{{ isNewDiv ? 'Mostrar a Tabela' : 'Nova Área comuns' }}" style="text-transform: uppercase;" class="p-button-success mb-2" icon="pi pi-plus"></button>
+				
+			</div>	
+			<p-table [value]="areaReservas" *ngIf="!isNewDiv" dataKey="id_area_reserva" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['id_area_reserva', 'bloco_id', 'descricao']" >
+				<ng-template pTemplate="caption">
+				  <div class="flex justify-content-between flex-column sm:flex-row">
+					<button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary"> <i class="pi pi-download mr-2"></i> </button>
+				 
+					<span class="p-input-icon-left mb-2">
+					  <i class="pi pi-search"></i>
+					  <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar áreas comuns" class="w-full" />
+					</span>
+
+				  </div>
+				</ng-template>
+				<ng-template *ngIf="!isNewDiv" pTemplate="header">
+				  <tr>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						ID
+						<p-columnFilter type="text" field="id_area_reserva" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Bloco
+						<p-columnFilter type="text" field="nome_bloco" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Descrição
+						<p-columnFilter type="text" field="descricao" display="menu" placeholder="Pesquisar por telefone"></p-columnFilter>
+					  </div>
+					</th>
+					
+					
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Ações
+						<p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+					  </div>
+					</th>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-area>
+				  <tr>
+					<td> {{ area.id_area_reserva }} </td>
+					<td> {{ area.nome_bloco }}  </td>
+					<td> {{ area.descricao }}  </td>
+					
+					
+					<td>
+                        <button title="Ver por completo" (click)="verCompleto()" pButton class="mr-2 p-button" icon="pi pi-eye"></button>
+						<p-dialog header="Visualizar dados" [(visible)]="displayModal" [modal]="true" [style]="{ 'width': '50%', 'max-width': '600px' }"> <hr>
+							<!-- Conteúdo do modal aqui -->
+							<!-- Por exemplo, você pode adicionar uma tabela com os dados completos -->
+						
+						  </p-dialog>
+					  <button title="Editar condomínio" pButton class="mr-2 p-button-success"  (click)="showModal = true"><i class="pi pi-pencil"></i></button>
+					  <p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+						
+						 <div class="col-12">
+							<div class="card">
+								
+								<div class="p-fluid p-formgrid grid">
+									
+									<div class="field col-12 md:col-4">
+										<label htmlFor="firstname2"> Nome do condomínio </label>
+										<input  class="text-gray-800" pInputText id="firstname2" placeholder="" type="text"/>
+									</div>
+
+									<div class="field col-12 md:col-4">
+										<label htmlFor="firstname2"> Tipo de condomínio </label>
+										<input  class="text-gray-800" style="color: red;" pInputText id="firstname2" placeholder="" type="text" />
+									</div>
+
+									<div class="field col-12 md:col-4">
+										<label htmlFor="firstname2"> Síndico </label>
+										<input class="text-gray-800" pInputText id="firstname2" placeholder="" type="text" />
+									</div>
+
+									<div class="field col-12 md:col-4">
+										<label class="text-gray-700" for="status"> Endereço: * </label>
+										
+										<select style="width:30vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" >
+											<option > </option>
+										 </select>			
+									 </div>
+
+									 <div class="field col-12 md:col-4">
+										<label class="text-gray-700" for="status"> Estado: * </label>										
+								<select style="width:30vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;">
+											<option > </option>
+										 </select>			
+									 </div>
+
+									 <div class="col-12 md:col-6">
+										<button pButton class="p-button-rounded p-button-info mt-4" style="text-transform: uppercase;" label="Editar"></button>
+									   </div>								 
+								 </div>
+								</div>
+							 
+						 </div>
+						 
+						<p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+					</p-dialog>
+					  <button title="Desabilitar condomínio" pButton class="p-button-warning" ><i class="pi pi-trash"></i></button>
+					</td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage">
+				  <tr>
+					<td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhuma área comuns encontrado. </span>  </td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+				  <tr>
+					<td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+				  </tr>
+				</ng-template>
+			  </p-table>
+
+	</div>
+		 
+	</div>
+
+	

@@ -1,0 +1,151 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h2 style="font-weight: 700;text-transform: uppercase;" class="text-gray-500"> Gestão de Finanças </h2>  
+            <p class="text-gray-500"> Controle de Finanças dos moradores. </p>
+        </div>
+        
+        <p-table [value]="despesas" *ngIf="!isNewDiv" dataKey="id_despesa" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['nome_despesa', 'valor_despesa']">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between flex-column sm:flex-row">
+                    <button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary">
+                        <i class="pi pi-download mr-2"></i>
+                    </button>
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar Quota" class="w-full"/>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template *ngIf="!isNewDiv" pTemplate="header">
+                <tr>
+
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Nome
+                            <p-columnFilter type="text" field="morador_id" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+                        </div>
+                    </th>  
+
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Email
+                            <p-columnFilter type="text" field="morador_id" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+                        </div>
+                    </th>  
+
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Bloco
+                            <p-columnFilter type="text" field="morador_id" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+                        </div>
+                    </th>  
+
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Unidade
+                            <p-columnFilter type="text" field="morador_id" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+                        </div>
+                    </th>  
+
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Tipo de despesa
+                            <p-columnFilter type="text" field="nome_despesa" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Valor
+                            <p-columnFilter type="text" field="valor_despesa" display="menu" placeholder="Pesquisar por telefone"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Comprovativo
+                            <p-columnFilter type="text" field="comprovativo_despesa" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+                        </div>
+                    </th>
+
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                        Mês  
+                        <p-columnFilter type="text" field="mes_despesa" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+                        </div>
+                    </th>
+
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Estado
+                            <p-columnFilter type="text" field="estado" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Ações
+                            <p-columnFilter type="text" field="" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-despesa>
+                <tr>
+                    <td> {{ despesa.nome_morador }} </td>
+                    <td> {{ despesa.email_morador }} </td>
+                    <td> {{ despesa.nome_bloco }} </td>
+                    <td> {{ despesa.nome_unidade }} </td>
+                    <td><span class="image-text ml-2"> {{ despesa.nome_tipo_despesa }} </span></td>
+                    <td > {{ despesa.valor_despesa }} </td>
+                    <td>
+                        <ng-container *ngIf="isPDF(despesa.comprovativo_despesa); else showImage">
+                          <a style="text-transform: uppercase;font-weight:800;" class="text-gray-600" [href]="'http://127.0.0.1:5000/uploads/' + despesa.comprovativo_despesa" target="_blank">
+                             <i style="color:red; font-size: 3em;" class="pi pi-file-pdf"></i>
+                          </a>
+                        </ng-container>
+                        <ng-template #showImage>
+                            <img [src]="'http://127.0.0.1:5000/uploads/' + despesa.comprovativo_despesa"
+                            alt="Comprovativo do pagamento"
+                            width="100"
+                            (click)="openLightbox(getImageIndex(despesa.comprovativo_despesa))" />
+                          </ng-template>
+                      </td>
+                      <td> {{ despesa.mes_despesa }} </td>
+                      <td style="text-transform: uppercase;" [ngStyle]="{'color': (isPago(despesa.estado) ? 'green': (isInAnalise(despesa.estado)? 'red': '') ) }"> {{ despesa.estado }} </td>
+                    <td>
+                    
+                        <button title="Aprovar o pagamento" (click)="aprovarPagamento(despesa.id_despesa)" pButton class="mr-2 p-button-success"><i class="pi pi-check"></i></button>
+                        <p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="p-fluid p-formgrid grid">
+                                        <div class="field col-12 md:col-4">
+                                            <label htmlFor="firstname2">Nome</label>
+                                            <input class="text-gray-800" pInputText id="firstname2" placeholder="" type="text"/>
+                                        </div>
+                                        <!-- Outros campos de entrada -->
+                                    </div>
+                                </div>
+                                <p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+                            </div>
+                        </p-dialog>
+                        <button pButton (click)="eliminarPessoa()" class="p-button-warning"><i class="pi pi-trash"></i></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td class="animacao" colspan="6">
+                        <span style="font-size: 1.2em; font-weight: 100;">Nenhuma conta paga encontrada.</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td class="text-gray-500" colspan="6">Está processando, por favor aguarde.</td>
+                </tr>
+            </ng-template>
+        </p-table>          
+
+    </div>
+
+</div>

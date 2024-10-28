@@ -1,0 +1,28 @@
+<div style="background-image: url('assets/demo/images/login/background.jpg');background-size: cover;background-position: center;min-height: 100vh;display: flex;align-items: center;justify-content: center;" class="login-container"> 
+    <div class="flex flex-column align-items-center justify-content-center">
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-6 px-8 sm:px-10" style="border-radius:53px">
+                <div class="text-center mb-2">
+                    <img src="assets/demo/images/login/8.png" alt="Image" height="120" class="mb-1">                
+                </div>
+                
+                <form (ngSubmit)="alterarSenha()"> 
+                    <div>
+                        <label for="password1" class="block text-900 font-medium text-xl mb-2"> Alterar senha é obrigatório: <span style="color: #bb162e;"> * </span> </label> <br>
+                        
+                        <input [(ngModel)]="novaSenha" name="novaSenha" pInputText style="padding: 8px 10px; border: 1px solid #989;border-radius: 5px;" placeholder="Digite a nova senha" class="w-full md:w-17rem mb-4" type="password">
+                        <div class="flex align-items-center justify-content-between mb-1 gap-5">
+            
+                        </div> 
+                        <input [(ngModel)]="confirmarSenha" name="confirmarSenha" pInputText style="padding: 8px 10px; border: 1px solid #989;border-radius: 5px;" placeholder="Digite novamente a senha" class="w-full md:w-17rem mb-5" type="password">
+                        <div class="flex align-items-center justify-content-between mb-1 gap-5">
+            
+                        </div> 
+                        <button pButton pRipple label="Guardar" type="submit" style="background-color: #bb162e;border:none;" class="w-full p-3 text-xl"></button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>

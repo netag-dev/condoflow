@@ -1,0 +1,155 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+			
+			
+			<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Blocos </h2>
+			 <p style="text-transform: uppercase;" class="text-gray-800"> Total de Blocos: <span style="font-weight:500;"> {{ bloc.length }} </span>  </p>
+			 
+			 <div class="col-12" *ngIf="isNewDiv">
+				<div class="card">
+					<h2 class="text-gray-600"> Novo Bloco </h2> <hr>
+					<div class="p-fluid p-formgrid grid">
+						<div class="field col-12 md:col-4">
+							<label htmlFor="firstname2"> Nome </label>
+							<input pInputText id="firstname2" [(ngModel)]="blocos.nome_bloco" placeholder="Número" type="text" />
+						</div>
+						
+
+						<div class="field col-12 md:col-4">
+                             <label class="text-gray-700" for="status"> Condomínio: * </label>
+							
+					<!--  <select style="width:37vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="blocos.condominio_id">
+					<option *ngFor="let condominio of condominios;" [value]="condominio.id_condominio"> {{ condominio.nome_condominio }} </option>
+					</select> -->
+					
+					<p-dropdown 
+					[options]="condominios" 
+					[(ngModel)]="blocos.condominio_id" 
+					optionLabel="nome_condominio" 
+					optionValue="id_condominio"
+					placeholder="Selecione o condomínio" />
+
+							</div>
+						
+						<div class="col-12 md:col-6">
+						 <button pButton (click)="addBloco()" class="p-button-rounded p-button-success" style="text-transform: uppercase;" label="Salvar"></button>
+						</div>
+												 
+					 	</div>
+				</div>
+			</div>
+						
+			<div style="display: flex;align-items: center;gap:10px">  
+				<button [loading]="loading[0]" (click)="toggleNewDiv()" (click)="load(0)" pButton label="{{ isNewDiv ? 'Mostrar a Tabela' : 'Novo Bloco' }}" style="text-transform: uppercase;" class="p-button-rounded mb-2" icon="pi pi-plus"></button>
+				
+			</div>	
+			<p-table [value]="bloc" *ngIf="!isNewDiv" dataKey="id_bloco" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['id_bloco', 'nome_bloco', 'condominio_id']" >
+				<ng-template pTemplate="caption">
+				  <div class="flex justify-content-between flex-column sm:flex-row">
+					<button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary"> <i class="pi pi-download mr-2"></i> </button>
+				 
+					<span class="p-input-icon-left mb-2">
+					  <i class="pi pi-search"></i>
+					  <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar Blocos" class="w-full" />
+					</span>
+
+				  </div>
+				</ng-template>
+				<ng-template *ngIf="!isNewDiv" pTemplate="header">
+				  <tr>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						ID
+						<p-columnFilter type="text" field="id_bloco\" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Nome do Bloco
+						<p-columnFilter type="text" field="nome_bloco" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+					  </div>
+					</th>
+					
+					
+					<th style="min-width: 10rem">
+					  <div class="flex justify-content-between align-items-center">
+						Condomínio
+						<p-columnFilter type="text" field="condominio_id" display="menu" placeholder="Pesquisar por condomínio"></p-columnFilter>
+					  </div>
+					</th>
+					
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Ações
+						<p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+					  </div>
+					</th>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-relative>
+				  <tr >
+					<td> {{ relative.id_bloco }} </td>
+					<td> {{ relative.nome_bloco }} </td>
+					<td><span class="image-text ml-2"> {{ relative.nome_condominio }} </span></td>
+										<td>
+					  <button pButton class="mr-2 p-button-success" (click)="getEmployee(relative.id_bloco)"  (click)="showModal = true"><i class="pi pi-pencil"></i></button>
+					  <p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+						
+						 <div class="col-12">
+							<div class="card">
+								
+								<div class="p-fluid p-formgrid grid">
+									
+									<div class="field col-12 md:col-4">
+										<label htmlFor="firstname2"> Nome do Bloco </label>
+										<input class="text-gray-800" pInputText [(ngModel)]="blocos.nome_bloco" id="firstname2" placeholder="" type="text"/>
+									</div>
+
+									
+
+									<div class="field col-12 md:col-4">
+										<label class="text-gray-700" for="status"> Condomínio: * </label>
+										
+										<select style="width:30vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="blocos.condominio_id">
+											<option *ngFor="let condominio of condominios" [value]="condominio.id_condominio" [ngSelected]="condominio.id_condominio === blocos.condominio_id">{{ condominio.nome_condominio }}</option>
+										 </select>			
+									 </div>
+
+
+									 <div class="col-12 md:col-6">
+										<button pButton class="p-button-rounded p-button-info mt-4" (click)="updateEmployee()" style="text-transform: uppercase;" label="Editar"></button>
+									   </div>								 
+								 </div>
+
+
+								</div>
+								 							 
+						 </div>
+						 
+						<p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+					</p-dialog>
+					  <button pButton (click)="eliminarPessoa(employeeObj.id_bloco)" class="p-button-warning" ><i class="pi pi-trash"></i></button>
+					</td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage">
+				  <tr>
+					<td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhum bloco encontrado. </span>  </td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+				  <tr>
+					<td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+				  </tr>
+				</ng-template>
+			  </p-table>
+			  
+
+		
+
+	</div>
+		 
+	</div>
+
+	

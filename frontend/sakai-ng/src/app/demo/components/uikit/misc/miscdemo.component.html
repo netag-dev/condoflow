@@ -1,0 +1,137 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+						
+			<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Visitantes </h2>
+			 <p style="text-transform: uppercase;" class="text-gray-800"> Total de Visitantes: <span style="font-weight:500;"> {{ visitantes.length }} </span>  </p>
+						
+			<div style="display: flex;align-items: center;gap:10px">  
+				
+			</div>	
+			<p-table [value]="visitantes" *ngIf="!isNewDiv" dataKey="id_visitante" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['id_pessoa', 'nome_pessoa', 'telefone_pessoa', 'bi_pessoa', 'endereco_id', 'status_id', 'status']" >
+				<ng-template pTemplate="caption">
+				  <div class="flex justify-content-between flex-column sm:flex-row">
+					<button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary"> <i class="pi pi-download mr-2"></i> </button>
+				 
+					<span class="p-input-icon-left mb-2">
+					  <i class="pi pi-search"></i>
+					  <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar Visitante" class="w-full" />
+					</span>
+
+				  </div>
+				</ng-template>
+				<ng-template *ngIf="!isNewDiv" pTemplate="header">
+				  <tr>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						ID
+						<p-columnFilter type="text" field="id_visitante" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Nome
+						<p-columnFilter type="text" field="nome_visitante" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Apelido 
+						<p-columnFilter type="text" field="apelido_visitante" display="menu" placeholder="Pesquisar por telefone"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 14rem">
+					  <div class="flex justify-content-between align-items-center">
+						Contacto
+						<p-columnFilter type="text" field="contacto_visitante" display="menu" placeholder="Pesquisar por bilhete de identidade"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 10rem">
+					  <div class="flex justify-content-between align-items-center">
+						Bilhete
+						<p-columnFilter type="text" field="bilhete_visitante" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+					  </div>
+					</th>
+
+					<th style="min-width: 10rem">
+						<div class="flex justify-content-between align-items-center">
+						  Bloco
+						  <p-columnFilter type="text" field="nome_bloco" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+						</div>
+					  </th>
+
+					  <th style="min-width: 10rem">
+						<div class="flex justify-content-between align-items-center">
+						  Unidade
+						  <p-columnFilter type="text" field="metragem_unidade" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+						</div>
+					  </th>
+
+					  <th style="min-width: 10rem">
+						<div class="flex justify-content-between align-items-center">
+						  Estado
+						  <p-columnFilter type="text" field="estado" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+						</div>
+					  </th>
+					
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Ações
+						<p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+					  </div>
+					</th>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-relative>
+					<tr>
+						<td> {{ relative.id_visitante }} </td>
+						<td> {{ relative.nome_visitante }} </td>
+						<td><span class="image-text ml-2"> {{ relative.apelido_visitante }} </span></td>
+						<td><span class="image-text ml-2"> {{ relative.contacto_visitante }} </span></td>
+						<td> {{ relative.bilhete_visitante }} </td>
+						<td> {{ relative.nome_bloco }} </td>
+						<td> {{ relative.metragem_unidade }} </td>
+						<td [ngStyle]="{'color': (isAutorizado(relative.estado) ? 'green' : (isNotAutorizado(relative.estado) ? 'red' : ''))}" style="text-transform: uppercase;font-weight:700;"> {{ relative.estado }} </td>
+						<td>
+						<button pButton class="mr-2 p-button-success" (click)="autorizarEntrada(relative.id_visitante)" title="Autorizar entrar"><i class="pi pi-check"></i></button>
+							
+							<p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+								<div class="col-12">
+									<div class="card">
+										<div class="p-fluid p-formgrid grid">
+											<div class="field col-12 md:col-4">
+												<label htmlFor="firstname2"> Nome </label>
+												<input class="text-gray-800" pInputText [(ngModel)]="relative.nome_pessoa" id="firstname2" placeholder="" type="text"/>
+											</div>
+											<!-- Other input fields -->
+										</div>
+									</div>
+									<p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+								</div>
+							</p-dialog>
+							<button pButton (click)="eliminarPessoa(relative.id_visitante)" class="p-button-warning"><i class="pi pi-trash"></i></button>
+						</td>
+					</tr>
+				</ng-template>
+				
+				
+				<ng-template pTemplate="emptymessage">
+				  <tr>
+					<td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhum visitante encontrado. </span>  </td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+				  <tr>
+					<td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+				  </tr>
+				</ng-template>
+			  </p-table>
+			  
+
+		
+
+	</div>
+		 
+	</div>
+
+	

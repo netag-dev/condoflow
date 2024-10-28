@@ -1,0 +1,46 @@
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+
+gerarPDF() {
+  // Configurar os arquivos de fonte do pdfmake
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+  // Definir o logotipo
+  const logo = 'data:image/png;base64,INSERT_YOUR_LOGO_BASE64_STRING_HERE';
+
+  // Definir o conteúdo do PDF
+  const documentDefinition = {
+    content: [
+      // Inserir o logotipo no início do PDF
+      { image: logo, width: 150, alignment: 'center', margin: [0, 10, 0, 10] },
+      { text: 'Lista de Usuários', style: 'header', alignment: 'center' },
+      { text: 'Total de Usuários: ' + this.pessoas.length, alignment: 'center', margin: [0, 0, 0, 10] },
+      // Definir a tabela para agrupar os dados
+      {
+        table: {
+          headerRows: 1,
+          widths: ['*', '*'], // Largura das colunas
+          body: [
+            ['Nome', 'Telefone'], // Cabeçalho da tabela
+            // Corpo da tabela com os dados das pessoas
+            ...this.pessoas.map(pessoa => [pessoa.nome_pessoa, pessoa.telefone_pessoa])
+          ]
+        },
+        margin: [0, 10, 0, 10] // Margens da tabela
+      }
+    ],
+    // Estilos para o cabeçalho
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true,
+        margin: [0, 0, 0, 10]
+      }
+    },
+    // Configurações de layout do PDF
+    pageMargins: [40, 60, 40, 60] // Margens da página (superior, direita, inferior, esquerda)
+  };
+
+  // Criar e baixar o PDF
+  pdfMake.createPdf(documentDefinition).download('lista_de_usuarios.pdf');
+}

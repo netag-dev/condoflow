@@ -1,0 +1,13 @@
+<div class="container">
+
+        <img src="assets/demo/images/login/8.png" alt="Image" height="100" width="130" class="logo mb-1">
+ 
+    <h2 class="title"> Código QR para Formulário de Visitantes! </h2>
+    <p class="subtitle"> Passe a câmera do seu telemóvel no Código QR para gerar o formulário.</p>
+    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />   
+    <div class="qr-code">
+      <qrcode [qrdata]="myAngularxQrCode" (scan)="onQRCodeScanned($event)" [width]="450" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+    <button class="download-button"> Baixar a Imagem QR </button>
+  </div>
+  

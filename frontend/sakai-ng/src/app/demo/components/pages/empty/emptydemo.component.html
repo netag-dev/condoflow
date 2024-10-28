@@ -1,0 +1,31 @@
+<div class="grid">
+	<div class="col-12">
+	  <div class="card">
+		<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Tipo de estacionamento </h2>
+		<input pInputText [(ngModel)]="tipoEstacionamento.nome_tipo_estacionamento" style="width:35vh;" type="text" placeholder="Cadastrar Tipo de Estacionamento"><br><br>
+		<button pButton (click)="addTipoEstacionamento()" class="p-button-success mb-2" label="Salvar"></button>
+	  </div>
+  
+	  <p-card style="text-transform: uppercase;" header="Tipos de estacionamento">
+		<span> Total de tipos de estacionamentos: {{ tipoEstacionamentos.length }} </span>
+		<input pInputText placeholder="Pesquisar" style="margin-left: 50px;width:20%;" type="text">
+		<i title="Baixar a lista em PDF" style="font-size: 25px;color:#03a4da;margin-top:-10px;float: right;cursor:pointer;" class="pi pi-download"></i>
+		<hr>
+		<ng-container *ngIf="tipoEstacionamentos.length > 0; else noTipoEstacionamentos">
+		  <ul>
+			<li style="text-transform: uppercase;font-weight:600;" class="text-gray-500" *ngFor="let tipoEstacionamento of tipoEstacionamentos">
+			  identificador: {{ tipoEstacionamento.id_tipo_estacionamento }}  <br> <br>
+			  Tipo:  {{ tipoEstacionamento.nome_tipo_estacionamento }} <br><br>
+			  <a style="text-transform: uppercase;font-weight:600;" class="text-blue-400"> Editar <i class="pi pi-pencil"></i> </a> <br><br>
+			  <a style="text-transform: uppercase;font-weight:600;" class="text-red-400"> Eliminar <i class="pi pi-trash"></i> </a> <br><br> <hr>
+			</li>
+		  </ul>
+		</ng-container>
+		<ng-template #noTipoEstacionamentos>
+		  <p class="animacao" style="text-transform: initial;"> Nenhum tipo de estacionamento encontrado... </p>
+		</ng-template>
+	  </p-card>
+  
+	</div>
+  </div>
+  

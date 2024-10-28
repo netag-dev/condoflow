@@ -1,0 +1,16 @@
+.container {
+    h1 {
+      font-weight: 600;
+      color: #cb1e15;
+    }
+  }
+  
+  .row {
+    border-radius: 20%;
+    .card {
+      &.border-left {
+        border-width: 5px;
+      }
+    }
+  }
+  

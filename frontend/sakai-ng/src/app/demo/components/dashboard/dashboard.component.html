@@ -1,0 +1,89 @@
+<div class="container">
+    <h1 style="font-weight: 600; color: #cb1e15;"> Dashboard </h1>    
+</div>
+<div class="row" style="border-radius: 20%;">
+  <h5 class="text-gray-600" style="font-weight: 200; text-transform: uppercase;"> Meus Condomínios </h5>
+  <ng-container *ngIf="condominios && condominios.length > 0; else noCondominios">
+    <p-carousel 
+        [value]="condominios" 
+        [numVisible]="3" 
+        [numScroll]="1" 
+        [circular]="true" 
+        [responsiveOptions]="responsiveOptions" 
+        [autoplayInterval]="4000">
+        <ng-template let-condominio let-i="index" pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                <div class="card" style="border:2px solid #832e2e;border-left:30px solid #bb696b;" [style.border-left]="getBorderColor(i)" [style.width]="'100%'">
+                    <div class="card-content flex align-items-center justify-content-between mb-3">
+                        <div class="text-content" style="width: 70%;">
+                            <span class="block text-500 font-medium mb-3">Condomínio</span>
+                            <div class="text-900 font-medium text-xl">
+                                <h6 style="text-transform: uppercase; font-weight: 900;">{{ condominio.nome_condominio }}</h6>
+                            </div>
+                        </div>
+                        <div class="icon-container flex align-items-center justify-content-center bg-blue-100 border-round" 
+                             [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                            <i class="pi pi-map-marker text-blue-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</ng-container>
+
+  
+  <ng-template #noCondominios>
+      <div class="text-center mt-4">
+          <p class="text-gray-500" style="font-weight: 600; text-transform: uppercase;">Nenhum condomínio cadastrado.</p>
+      </div>
+      <hr style="border: 0.1px dashed #cb1e15;">
+  </ng-template>
+  <br><br>
+</div>
+
+   <div class="grid">       
+        <div class="col-12 xl:col-6">
+            <div style="background-color: rgb(215, 255, 247);" class="card">
+                <a [routerLink]="['/uikit/formlayout']" style="color:#832e2e;font-weight:800;" title="Mostrar a tabela completa de pedidos de reserva">  Clique aqui para mostrar a tabela </a>
+                <h5 style="text-transform: uppercase;font-weight:900;color: #d37979;"> Pedidos de reservas </h5>
+                <p-table [value]="pedidos" [paginator]="true" [rows]="3" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                       
+                            <th pSortableColumn="name">  Nome do Morador <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="price"> Data da Reserva <p-sortIcon field="price"></p-sortIcon></th>
+                            <th> Estado </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-reserva>
+                        <tr>
+                           
+                            <td style="width: 35%; min-width: 7rem;color:#333"> {{ reserva.nome_morador }} </td>
+                            <td style="width: 35%; min-width: 8rem;color:#333"> {{ reserva.data_da_reserva }}  </td>
+                            <td style="width: 15%;color:#333">
+                               {{ reserva.estado }}
+                            </td>
+                        </tr>
+                        
+                    </ng-template>
+
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                           <td class="animacao" colspan="3"><span style="font-size:1em;font-weight:100;color:#6a6a6a;"> Nenhum pedido de reserva... </span></td> 
+                        </tr>
+                    </ng-template>
+                    
+                </p-table>
+            </div>
+         
+        </div>
+
+        <div class="col-12 xl:col-6">
+            <div style="border:8px solid #a816d0;" class="card">
+                <h5> Gráfico de Pagamento das despesas dos moradores </h5>
+                <p-chart type="bar" [data]="barData" [options]="barOptions"></p-chart>
+            </div>       
+    </div>
+</div>
+

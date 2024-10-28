@@ -1,0 +1,120 @@
+<p-menubar class="menu-bar custom-menubar" [model]="items">
+    <ng-template pTemplate="end">
+        <div class="user-info">
+            <img src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000" alt="User Profile" class="user-avatar">
+            <span class="user-name"> {{ userEmail }} </span>
+            <button pButton type="button" label="Terminar Sessão" icon="pi pi-sign-out" class="logout-button" (click)="logout()"></button>
+        
+          </div>
+    </ng-template>
+  </p-menubar>
+  
+  <div style="margin: 30px;">
+      <p-table [value]="emergencias" *ngIf="!isNewDiv" dataKey="" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['nome_visitante', 'nome_bloco', 'contacto_visitante', 'nome_unidade', 'contacto_unidade', 'nome_morador']" >
+          <ng-template pTemplate="caption">
+            <div class="flex justify-content-between flex-column sm:flex-row">
+             <h2 style="text-transform: uppercase;font-weight: 900;"> Pedidos de socorro <i style="font-size: 20px;" class="pi pi-fw pi-shield"></i> </h2> 
+              
+              <span class="p-input-icon-left mb-2">
+                <i class="pi pi-search"></i>
+                <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pedidos de socorro" class="w-full" />
+              </span>
+  
+            </div>
+          </ng-template>
+          <ng-template *ngIf="!isNewDiv" pTemplate="header">
+            <tr>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 Nome do Morador
+                  <p-columnFilter type="text" field="id_visitante" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                 Telefone do Morador
+                  <p-columnFilter type="text" field="id_visitante" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+                </div>
+              </th>
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                  Email do Morador
+                  <p-columnFilter type="text" field="nome_visitante" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+                </div>
+              </th>
+
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                  Tipo de Emergência
+                  <p-columnFilter type="text" field="nome_visitante" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+                </div>
+              </th>
+         
+              <th style="min-width: 14rem">
+                <div class="flex justify-content-between align-items-center">
+                  Bloco
+                  <p-columnFilter type="text" field="contacto_visitante" display="menu" placeholder="Pesquisar por bilhete de identidade"></p-columnFilter>
+                </div>
+              </th>
+  
+              <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                  Unidade
+                    <p-columnFilter type="text" field="bilhete_visitante" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+                  </div>
+                </th>
+  
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Data e Hora
+                    <p-columnFilter type="text" field="bilhete_visitante" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+                  </div>
+                </th>
+  
+              
+              <th style="min-width: 12rem">
+                <div class="flex justify-content-between align-items-center">
+                  Ações
+                  <p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-emergencia>
+              <tr>
+                  <td>
+                     {{ emergencia.nome_morador }} 
+                  </td>
+                  <td> {{ emergencia.telefone_morador }} </td>
+                  <td> {{ emergencia.email_morador }} </td>
+                  <td> <span style="font-weight:900;color:red;font-size: 1.2em;" class="image-text ml-2"> {{ emergencia.tipo_emergencia }} </span></td>
+                  <td> <span class="image-text ml-2"> {{ emergencia.bloco }} </span></td>
+                  <td> {{ emergencia.unidade }} </td>
+                  <td> {{ emergencia.data_hora_emergencia | date: 'dd/MM/yyyy HH:mm:ss' }} </td>
+                  <td>
+                  <button pButton class="mr-2 p-button-secondary" (click)="verCompleto(relative.id_visitante)" title="Obter mais informações do visitante"><i class="pi pi-info-circle"></i></button>
+               
+          
+                      <button pButton (click)="eliminarPessoa(relative.id_visitante)" class="p-button-default"><i class="pi pi-download"></i></button>
+                  </td>
+              </tr>
+          </ng-template>
+          
+          
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhum visitante encontrado. </span>  </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="loadingbody">
+            <tr>
+              <td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+            </tr>
+          </ng-template>
+        </p-table>
+  </div>
+  
+  <div class="layout-footer">
+  <span style="color:#a31e1e;font-weight: 900;font-size:14px;text-transform: uppercase;" 
+  class="font-medium ml-2 text-gray-500"> Condoflow 2024 </span>
+   </div>

@@ -1,0 +1,32 @@
+<div class="grid">
+	<div class="col-12">
+	  <div class="card">
+		<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Tipo de condomínio </h2>
+		<input pInputText style="width:35vh;" [(ngModel)]="tipocondomin.nome_tipo_condominio" type="text"
+		  placeholder="Cadastrar tipo de condomínio"><br><br>
+		<button pButton (click)="addTipoCondominio()" class="p-button-success mb-2" label="Salvar"></button>
+	  </div>
+  
+	  <p-card style="text-transform: uppercase;" header="Tipos de condomínios">
+		<span> Total de tipos: {{ tipoCondomins.length }} </span>
+		<input pInputText placeholder="Pesquisar tipo de condomínio" style="margin-left: 50px;width:25%;" type="text">
+		<i title="Baixar a lista em PDF" style="font-size: 25px;color:#03a4da;margin-top:-10px;float: right;cursor:pointer;" class="pi pi-download"></i>
+		<hr>
+		<ng-container *ngIf="tipoCondomins.length > 0; else noCondominios">
+			<ul>
+				<li style="text-transform: uppercase;font-weight:600;" class="text-gray-500" *ngFor="let tipoCondominio of tipoCondomins">
+					identificador: {{ tipoCondominio.id_tipo_condominio }} <br> <br>
+					Tipo: {{ tipoCondominio.nome_tipo_condominio }} <br><br>
+					<a style="text-transform: uppercase;font-weight:600;" class="text-blue-400"> Editar <i class="pi pi-pencil"></i> </a> <br><br>
+					<a style="text-transform: uppercase;font-weight:600;" class="text-red-400"> Eliminar <i class="pi pi-trash"></i> </a> <br><br> <hr>
+				</li>
+			</ul>
+		</ng-container>
+		<ng-template #noCondominios>
+			<p class="animacao" style="text-transform: initial;"> Nenhum tipo de condomínio cadastrado. </p>
+		</ng-template>
+	</p-card>
+	
+	</div>
+  </div>
+  

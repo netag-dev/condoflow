@@ -1,0 +1,14 @@
+.menu-bar{
+    background-color: #111;
+}
+
+.layout-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ocupa toda a largura da página */
+    background-color: #ffffff; /* Cor de fundo do rodapé */
+    padding: 10px; /* Espaçamento interno do rodapé */
+    border-top: 1px solid #ddd; /* Adicione uma borda superior opcional */
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); 
+}

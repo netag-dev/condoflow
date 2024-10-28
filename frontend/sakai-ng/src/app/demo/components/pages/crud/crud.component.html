@@ -1,0 +1,227 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+			
+			
+			<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Condomínios </h2>
+			 <p style="text-transform: uppercase;" class="text-gray-800"> Total de Condomínios: <span style="font-weight:500;"> {{ condominios.length }} </span>  </p>
+			 
+			 <div class="col-12" *ngIf="isNewDiv">
+				<div class="card">
+					<h2 class="text-gray-600"> Novo Condomínio </h2> <hr>
+					<div class="p-fluid p-formgrid grid">
+						<div class="field col-12 md:col-4">
+							<label htmlFor="firstname2"> Nome do condomínio </label>
+							<input pInputText id="firstname2" [(ngModel)]="condominio.nome_condominio" placeholder="Nome" type="text" />
+						</div>
+
+                        <div class="field col-12 md:col-4">
+							<label class="text-gray-700" for="tipo de condominio"> Tipo de condomínio: * </label>
+							
+						<!-- <select style="width:37vh;height:5.3vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="condominio.tipo_condominio_id">
+                               <option *ngFor="let tipo of tipos;" [value]="tipo.id_tipo_condominio"> {{ tipo.nome_tipo_condominio }}</option>
+							 </select> -->
+
+							 <p-dropdown
+							 [options]="tipos"
+							 [(ngModel)]="condominio.tipo_condominio_id"
+							 optionLabel="nome_tipo_condominio"
+							 optionValue="id_tipo_condominio"
+							 placeholder="Selecione o tipo de condomínio" />
+
+                         </div>
+
+
+                        <div class="field col-12 md:col-4">
+							<label class="text-gray-700" for="status"> Síndico: * </label>
+							
+						<!-- <select style="width:37vh;height:5.3vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="condominio.sindico_id">
+							<option *ngFor="let sindico of sindicos;" [value]="sindico.id_sindico"> {{ sindico.nome_sindico }} </option>		  
+							</select> -->
+
+							<p-dropdown
+							 [options]="sindicos"
+							 [(ngModel)]="condominio.sindico_id"
+							 optionLabel="nome_sindico"
+							 optionValue="id_sindico"
+							 placeholder="Selecione o Síndico" />
+
+                         </div>
+
+						<div class="field col-12 md:col-4">
+                             <label class="text-gray-700" for="status"> Endereço: * </label>
+							
+						<!-- <select style="width:37vh;height:5.3vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="condominio.endereco_id">
+							<option *ngFor="let endereco of enderecos[0];" [value]="endereco.id_endereco"> {{ endereco.nome_endereco }} </option>		  
+							</select> -->
+								 
+							 <p-dropdown
+							 [options]="enderecos[0]"
+							 [(ngModel)]="condominio.endereco_id"
+							 optionLabel="nome_endereco"
+							 optionValue="id_endereco"
+							 placeholder="Selecione o endereço" />
+							</div>
+						
+						
+						<div class="col-12 md:col-6">
+						 <button pButton (click)="addCondominio()" class="p-button-rounded p-button-success" style="text-transform: uppercase;" label="Salvar"></button>
+						</div>
+												 
+					 	</div>
+				</div>
+			</div>
+			
+
+			
+			<div style="display: flex;align-items: center;gap:10px">  
+            <button [loading]="loading[0]" (click)="toggleNewDiv()"  (click)="load(0)" pButton label="{{ isNewDiv ? 'Mostrar a Tabela' : 'Novo Condomínio' }}" style="text-transform: uppercase;" class="p-button-success mb-2" icon="pi pi-plus"></button>
+				
+			</div>	
+			<p-table  [value]="condominios" *ngIf="!isNewDiv" dataKey="id_condominio" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['id_condominio', 'nome_condominio', 'tipo_condominio_id', 'sindico_id', 'endereco_id']" >
+				<ng-template pTemplate="caption">
+				  <div class="flex justify-content-between flex-column sm:flex-row">
+					<button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary"> <i class="pi pi-download mr-2"></i> </button>
+				 
+					<span class="p-input-icon-left mb-2">
+					  <i class="pi pi-search"></i>
+					  <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar condomínios" class="w-full" />
+					</span>
+
+				  </div>
+				</ng-template>
+				<ng-template *ngIf="!isNewDiv" pTemplate="header">
+				  <tr>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						ID
+						<p-columnFilter type="text" field="id_condominio" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Nome do condomínio
+						<p-columnFilter type="text" field="nome_condominio" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Tipo de condomínio
+						<p-columnFilter type="text" field="tipo_condominio_id" display="menu" placeholder="Pesquisar por telefone"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 14rem">
+					  <div class="flex justify-content-between align-items-center">
+						Síndico
+						<p-columnFilter type="text" field="sindico_id" display="menu" placeholder="Pesquisar por bilhete de identidade"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 10rem">
+					  <div class="flex justify-content-between align-items-center">
+						Endereço
+						<p-columnFilter type="text" field="endereco_id" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+					  </div>
+					</th>
+					
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Ações
+						<p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+					  </div>
+					</th>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-relative>
+				  <tr>
+					<td> {{ relative.id_condominio }} </td>
+					<td> {{ relative.nome_condominio }} </td>
+					<td> {{ relative.nome_tipo_condominio }} </td>
+					<td> {{ relative.nome_sindico }} </td>
+					<td> {{ relative.nome_endereco }} </td>
+					<td>
+                        <button title="Ver por completo" (click)="verCompleto()" pButton class="mr-2 p-button" icon="pi pi-eye"></button>
+						<p-dialog header="Dados do condomínio" [(visible)]="displayModal" [modal]="true" [style]="{ 'width': '50%', 'max-width': '600px' }"> <hr>
+							
+							<div>
+							   <p>ID do condomínio: </p> 
+							   <p> Nome do condomínio:  </p>
+							   <p> Tipo de condomínio:  </p> <hr>
+							     <span style="text-transform: uppercase;font-weight:800;"> Dados do síndico </span> <br> <br>
+							   <p> ID do síndico:  </p>
+							   <p> Nome do síndico: </p>
+							   <p> Telefone do síndico:  </p>
+							   <p> BI do Síndico:  </p>
+							</div>
+							
+						  </p-dialog>
+					  <button title="Editar condomínio" pButton class="mr-2 p-button-success"  (click)="showModal = true"><i class="pi pi-pencil"></i></button>
+					  <p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+						
+						 <div class="col-12">
+							<div class="card">
+								
+								<div class="p-fluid p-formgrid grid">
+									
+									<div class="field col-12 md:col-4">
+										<label htmlFor="firstname2"> Nome do condomínio </label>
+										<input ([ngModel])="condominio.nome_condominio" class="text-gray-800" pInputText id="firstname2" placeholder="" type="text"/>
+									</div>
+
+									<div class="field col-12 md:col-4">
+										<label htmlFor="firstname2"> Tipo de condomínio </label>
+										<input ([ngModel])="condominio.tipo_condominio_id" class="text-gray-800" style="color: red;" pInputText id="firstname2" placeholder="" type="text" />
+									</div>
+
+									<div class="field col-12 md:col-4">
+										<label htmlFor="firstname2"> Síndico </label>
+										<input class="text-gray-800" pInputText id="firstname2" placeholder="" type="text" />
+									</div>
+
+									<div class="field col-12 md:col-4">
+										<label class="text-gray-700" for="status"> Endereço: * </label>
+										
+										<select style="width:30vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="condominio.endereco_id">
+											<option > </option>
+										 </select>			
+									 </div>
+
+									 <div class="field col-12 md:col-4">
+										<label class="text-gray-700" for="status"> Estado: * </label>										
+								<select style="width:30vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="condominio.status_id">
+											<option > </option>
+										 </select>			
+									 </div>
+
+									 <div class="col-12 md:col-6">
+										<button pButton class="p-button-rounded p-button-info mt-4" style="text-transform: uppercase;" label="Editar"></button>
+									   </div>								 
+								 </div>
+								</div>
+								 
+
+							 
+						 </div>
+						 
+						<p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+					</p-dialog>
+					  <button title="Desabilitar condomínio" pButton (click)="eliminarPessoa(employeeObj.id_pessoa)" class="p-button-warning" ><i class="pi pi-trash"></i></button>
+					</td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage">
+				  <tr>
+					<td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhum condomínio encontrado. </span>  </td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+				  <tr>
+					<td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+				  </tr>
+				</ng-template>
+			  </p-table>
+
+	</div>
+		 
+	</div>
+
+	

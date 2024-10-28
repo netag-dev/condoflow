@@ -1,0 +1,154 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+						
+			<h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Síndicos </h2>
+			 <p style="text-transform: uppercase;" class="text-gray-800"> Total de Síndicos: <span style="font-weight:500;"> {{ sindicos.length }} </span>  </p>
+			 
+			 <div class="col-12" *ngIf="isNewDiv">
+				<div class="card">
+					<h2 class="text-gray-600"> Novo Síndico </h2> <hr>
+					<div class="p-fluid p-formgrid grid">
+						<div class="field col-12 md:col-4">
+							<label htmlFor="firstname2"> Nome </label>
+							<input pInputText id="firstname2" [(ngModel)]="sindico.nome_pessoa" placeholder="Nome" type="text" />
+						</div>
+						<div class="field col-12 md:col-4">
+							<label htmlFor="lastname2"> Contacto </label>
+							<p-inputMask mask="999999999" [(ngModel)]="sindico.telefone_pessoa" placeholder="(+244) 999-999-999"></p-inputMask>
+						 
+						 </div>
+						<div class="field col-12 md:col-4">
+							<label htmlFor="address"> BI </label>
+							<input pInputText id="address" [(ngModel)]="sindico.bi_pessoa" placeholder="Bilhete de Identidade" rows="4" />
+						</div>
+
+						<div class="field col-12 md:col-4">
+                             <label class="text-gray-700" for="status"> Endereço: * </label>
+							
+							 <select style="width:37vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="sindico.endereco_id">
+                               <option *ngFor="let endereco of enderecos[0];" [value]="endereco.id_endereco"> {{ endereco.nome_endereco }} </option>
+							  
+								</select>
+
+							</div>
+						
+						<div class="field col-12 md:col-4">
+							<label class="text-gray-700" for="status"> Estado: * </label>
+							
+							<select style="width:37vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="sindico.status_id">
+                               <option *ngFor="let statu of status[0]" [value]="statu.id_status"> {{ statu.nome_status }} </option>
+							 </select>
+
+                         </div>
+						<div class="col-12 md:col-6">
+						 <button pButton (click)="addSindico()" class="p-button-rounded p-button-success" style="text-transform: uppercase;" label="Salvar"></button>
+						</div>
+												 
+					 	</div>
+				</div>
+			</div>
+						
+			<div style="display: flex;align-items: center;gap:10px">  
+				<button [loading]="loading[0]" (click)="toggleNewDiv()"  (click)="load(0)" pButton label="{{ isNewDiv ? 'Mostrar a Tabela' : 'Novo síndico' }}" style="text-transform: uppercase;" class="p-button-rounded mb-2" icon="pi pi-plus"></button>
+				
+			</div>	
+			<p-table [value]="sindicos" *ngIf="!isNewDiv" dataKey="id_sindicodor" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['id_pessoa', 'nome_pessoa', 'telefone_pessoa', 'bi_pessoa', 'endereco_id', 'status_id', 'status']" >
+				<ng-template pTemplate="caption">
+				  <div class="flex justify-content-between flex-column sm:flex-row">
+					<button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary"> <i class="pi pi-download mr-2"></i> </button>
+				 
+					<span class="p-input-icon-left mb-2">
+					  <i class="pi pi-search"></i>
+					  <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar síndico" class="w-full" />
+					</span>
+
+				  </div>
+				</ng-template>
+				<ng-template *ngIf="!isNewDiv" pTemplate="header">
+				  <tr>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						ID
+						<p-columnFilter type="text" field="id_pessoa" display="menu" placeholder="Pesquisar por ID"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Nome
+						<p-columnFilter type="text" field="nome_pessoa" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Telefone
+						<p-columnFilter type="text" field="telefone_pessoa" display="menu" placeholder="Pesquisar por telefone"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 14rem">
+					  <div class="flex justify-content-between align-items-center">
+						BI
+						<p-columnFilter type="text" field="bi_pessoa" display="menu" placeholder="Pesquisar por bilhete de identidade"></p-columnFilter>
+					  </div>
+					</th>
+					<th style="min-width: 10rem">
+					  <div class="flex justify-content-between align-items-center">
+						Email
+						<p-columnFilter type="text" field="endereco_id" display="menu" placeholder="Pesquisar por endereço"></p-columnFilter>
+					  </div>
+					</th>
+					
+					<th style="min-width: 12rem">
+					  <div class="flex justify-content-between align-items-center">
+						Ações
+						<p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+					  </div>
+					</th>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-relative>
+					<tr>
+						<td> {{ relative.id_sindico }} </td>
+						<td> {{ relative.nome_sindico }} </td>
+						<td><span class="image-text ml-2"> {{ relative.telefone_sindico }} </span></td>
+						<td><span class="image-text ml-2"> {{ relative.bi_sindico }} </span></td>
+						<td> {{ relative.email_sindico }} </td>
+						<td>
+							<button pButton class="mr-2 p-button-success" (click)="getEmployee(relative.id_sindico)" (click)="showModal = true"><i class="pi pi-pencil"></i></button>
+							<p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+								<div class="col-12">
+									<div class="card">
+										<div class="p-fluid p-formgrid grid">
+											<div class="field col-12 md:col-4">
+												<label htmlFor="firstname2"> Nome </label>
+												<input class="text-gray-800" pInputText [(ngModel)]="relative.nome_pessoa" id="firstname2" placeholder="" type="text"/>
+											</div>
+											<!-- Other input fields -->
+										</div>
+									</div>
+									<p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+								</div>
+							</p-dialog>
+							<button pButton (click)="eliminarPessoa(relative.id_sindico)" class="p-button-warning"><i class="pi pi-trash"></i></button>
+						</td>
+					</tr>
+				</ng-template>
+				
+				
+				<ng-template pTemplate="emptymessage">
+				  <tr>
+					<td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhum síndico encontrado. </span>  </td>
+				  </tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+				  <tr>
+					<td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+				  </tr>
+				</ng-template>
+			  </p-table>
+			  
+	</div>
+		 
+	</div>
+
+	

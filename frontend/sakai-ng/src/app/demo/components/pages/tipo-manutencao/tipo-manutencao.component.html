@@ -1,0 +1,29 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+            <h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Tipo de Manutenção </h2>
+		<input pInputText [(ngModel)]="tipoManu.descricao_manutencao" style="width:35vh;" type="text" placeholder=""><br><br>
+		<button pButton (click)="addTipoManutencao()" class="p-button-success mb-2" label="Salvar"></button>
+		</div>
+
+		<p-card style="text-transform: uppercase;" header="Tipos de manutenção">
+			<span> Total tipos de unidades:  </span>
+			<input pInputText placeholder="Pesquisar" style="margin-left: 50px;width:25%;" type="text">
+			  <i title="Baixar a lista em PDF" style="font-size:25px;color:#03a4da;float:right;margin-top:-10px;cursor:pointer;" class="pi pi-download"></i>
+			<hr>
+			<ng-container >
+				<ul>
+					<li style="text-transform: uppercase;font-weight:600;"  class="text-gray-500" >
+						identificador:   <br> <br>
+						Descrição:   <br><br>
+						<a style="text-transform: uppercase;font-weight:600;" class="text-blue-400"> Editar <i class="pi pi-pencil"></i> </a><br><br>
+						<a style="text-transform: uppercase;font-weight:600;" class="text-red-400"> Eliminar <i class="pi pi-trash"></i> </a> <br><br> <hr>
+					</li>
+				</ul>
+			</ng-container>
+			<ng-template #noTipoUnidades>
+				<p class="animacao" style="text-transform: initial;"> Nenhum tipo de manutenção cadastrado. </p>
+			</ng-template>
+		</p-card>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+.container {
+    text-align: center;
+    margin-top: 50px;
+     overflow-y: hidden;
+     overflow-x: hidden;
+     overflow: hidden; 
+ }
+
+ .logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    width: 130px;
+}
+  
+  .title {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .subtitle {
+    color: #666;
+  }
+  
+  .qr-code {
+    margin-top:-20px;
+  }
+  
+  .download-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+  

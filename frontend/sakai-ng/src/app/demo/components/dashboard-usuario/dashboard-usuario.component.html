@@ -1,0 +1,176 @@
+<p-menubar class="menu-bar" [model]="items">
+    <ng-template pTemplate="start">
+        <img src="assets/demo/images/login/8.png" alt="Image" height="70" class="mb-1">
+    </ng-template>
+    <ng-template pTemplate="item" let-item let-root="root">
+        
+        <a [routerLink]="['/disponivel']" style="margin-top: 20px;margin-left:20px;color: #5e5a5a;text-transform: uppercase;" pRipple class="flex align-items-center p-menuitem-link">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="total" />
+            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+        </a>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="flex align-items-center gap-5">
+         Email do usuário
+        </div>
+    </ng-template>
+</p-menubar>
+
+<div class="grid">
+    <div class="col-12">
+    <div class="card">
+    
+    <h2 style="font-weight: 200;text-transform: uppercase;" class="text-gray-600"> Reservas de Espaço </h2>
+    
+    <div class="col-8" *ngIf="isNewDiv">
+        <div class="card">
+          <h2 class="text-gray-600"> Fazer Reserva </h2>
+          <hr />
+          <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-4">
+              <label htmlFor="firstname2"> Email </label>
+              <input
+                pInputText
+                id="firstname2"
+                [(ngModel)]="reservas.usuario_id"
+                placeholder="email do usuário"
+              
+              />
+            </div>
+      
+            <div class="field col-12 md:col-4">
+              <label class="text-gray-700" for="status"> Selecione Bloco:* </label>
+              <select
+                style="width:37vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;"
+                [(ngModel)]="reservas.bloco_id">
+                <option *ngFor="let bloco of blocos;" [value]="bloco.id_bloco">
+                  {{ bloco.nome_bloco }}
+                </option>
+              </select>
+            </div>
+      
+            <div class="field col-12 md:col-4">
+          <label class="text-gray-700" for=""> Selecione a Data:* </label>
+              <p-calendar
+                [(ngModel)]="reservas.data_da_reserva"
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                inputId="icondisplay"
+              >
+              </p-calendar>
+            </div>
+      
+            <div class="col-12 md:col-2">
+              <button
+                pButton
+                (click)="addReserva()"
+                class="p-button-rounded p-button-success"
+                style="text-transform: uppercase;"
+                label="Salvar"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    
+    <div style="display: flex;align-items: center;gap:10px">  
+    <button [loading]="loading[0]" (click)="toggleNewDiv()"  (click)="load(0)" pButton label="{{ isNewDiv ? 'Mostrar a Tabela' : 'Fazer reserva' }}" style="text-transform: uppercase;" class="p-button-rounded mb-2" icon="pi pi-plus"></button>    
+    </div>	
+    
+    <p-table [value]="reservas" *ngIf="!isNewDiv" dataKey="bloco_id" [paginator]="true"  [rowsPerPageOptions]="[10, 25, 50]" #dt1 [rows]="10" [globalFilterFields]="['bloco_id']" >
+    <ng-template pTemplate="caption">
+    <div class="flex justify-content-between flex-column sm:flex-row">
+    <button pButton label="Gerar PDF" icon="pi pi-spin pi-spinner" (click)="gerarPDF()" class="p-button-secondary"> <i class="pi pi-download mr-2"></i> </button>
+    
+    <span class="p-input-icon-left mb-2">
+    <i class="pi pi-search"></i>
+    <input pInputText (input)="dt1.filterGlobal($event.target.value, 'contains')" type="text" [(ngModel)]="searchQuery" (input)="searchByName()" placeholder="Pesquisar reserva" class="w-full" />
+    </span>
+    
+    </div>
+    </ng-template>
+    <ng-template *ngIf="!isNewDiv" pTemplate="header">
+    <tr>
+    <th style="min-width: 12rem">
+    <div class="flex justify-content-between align-items-center">
+    Bloco
+    <p-columnFilter type="text" field="bloco_id" display="menu" placeholder="Pesquisar por nome"></p-columnFilter>
+    </div>
+    </th>
+    <th style="min-width: 12rem">
+    <div class="flex justify-content-between align-items-center">
+    Data da Reserva
+    <p-columnFilter type="text" field="data_da_reserva" display="menu" placeholder="Pesquisar por telefone"></p-columnFilter>
+    </div>
+    </th>
+    
+    <th style="min-width: 12rem">
+    <div class="flex justify-content-between align-items-center">
+      Estado
+    <p-columnFilter type="text" field="status" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+    </div>
+    </th>
+
+    <th style="min-width: 12rem">
+        <div class="flex justify-content-between align-items-center">
+          Ações
+        <p-columnFilter type="text" field="" display="menu" placeholder="Pesquisar por ações"></p-columnFilter>
+        </div>
+        </th>
+    </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-reserva>
+    <tr>
+    <td> {{ reserva.nome_bloco }} </td>
+    <td><span class="image-text ml-2"> {{ reserva.data_da_reserva }} </span></td>
+   
+    <td class="animaca" [ngStyle]="{'color': isPendente(reserva.status) ? 'orange' : (isAprovado(reserva.status) ? 'green' : (isCancelado(reserva.status) ? 'red' : ''))}" style="text-transform: uppercase;font-weight:800;" > {{ reserva.status }} </td>
+   
+    <td>
+    <button pButton class="mr-2 p-button-success" (click)="showModal = true"><i class="pi pi-pencil"></i></button>
+    <p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+        <div class="col-12">
+            <div class="card">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-4">
+                        <label htmlFor="firstname2"> Nome </label>
+                        <input class="text-gray-800" pInputText  id="firstname2" placeholder="" type="text"/>
+                    </div>
+                    <!-- Other input fields -->
+                </div>
+            </div>
+            <p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
+        </div>
+    </p-dialog>
+    <button pButton (click)="eliminarPessoa()" class="p-button-warning"><i class="pi pi-trash"></i></button>
+    </td>
+    </tr>
+    </ng-template>
+        
+    <ng-template pTemplate="emptymessage">
+    <tr>
+    <td class="animacao" colspan="6"> <span style="font-size: 1.2em;font-weight: 100;"> Nenhuma reserva encontrado. </span>  </td>
+    </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody">
+    <tr>
+    <td class="text-gray-500" colspan="6"> Está processando, por favor aguarde. </td>
+    </tr>
+    </ng-template>
+    </p-table>
+    
+    </div>
+    
+    </div>
+    </div>
+    
+
+
+    <div class="layout-footer">
+        <span style="color:#a31e1e;font-weight: 900;font-size:14px;text-transform: uppercase;" 
+        class="font-medium ml-2 text-gray-500"> Condoflow 2024 </span>
+     </div>
