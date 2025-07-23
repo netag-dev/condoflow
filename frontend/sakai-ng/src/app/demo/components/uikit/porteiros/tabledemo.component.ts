@@ -110,12 +110,40 @@ export class TableDemoComponent implements OnInit {
           confirmButtonText: 'Ok'
         });
         this.carregarPorteiros()
+      },
+      error:(error)=>{
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso!',
+          text: "Erro ao Eliminar um Porteiro",
+          confirmButtonText: 'Ok'
+        });
       }
-    })
+    }
+  )
   }
 
   edit(){
-    this.http.put<{mensagem: any}>(`http://192.168.1.59:5000/editar/porteiro/${this.porteiro.id_porteiro}`,this.porteiro)
+    this.http.put<{mensagem: any}>(`http://192.168.1.59:5000/editar/porteiro/${this.porteiro.id_porteiro}`,this.porteiro).subscribe({
+      next:(dados)=>{
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso!',
+          text: dados.mensagem,
+          confirmButtonText: 'Ok'
+        });
+        this.carregarPorteiros()
+        this.divModify = false
+      },
+      error:(error)=>{
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso!',
+          text: "Erro ao Editar um Porteiro",
+          confirmButtonText: 'Ok'
+        });
+      }
+    })
   }
 
 

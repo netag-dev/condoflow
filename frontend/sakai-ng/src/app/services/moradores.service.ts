@@ -24,4 +24,6 @@ export interface Morador{
   senha_usuario: string;
   fk_unidade: string
   fk_tipo_acesso: number;
+  id_morador : string;
+  id_pessoa : string;
 }

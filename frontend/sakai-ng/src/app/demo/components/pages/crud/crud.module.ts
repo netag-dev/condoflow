@@ -19,7 +19,7 @@ import { DialogModule } from 'primeng/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-import { TableDemoRoutingModule } from '../../uikit/table/tabledemo-routing.module';
+import { TableDemoRoutingModule } from '../../uikit/porteiros/tabledemo-routing.module';
 
 
 @NgModule({

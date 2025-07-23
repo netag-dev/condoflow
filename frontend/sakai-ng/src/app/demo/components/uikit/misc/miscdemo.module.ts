@@ -15,7 +15,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { TableDemoRoutingModule } from '../table/tabledemo-routing.module';
+import { TableDemoRoutingModule } from '../porteiros/tabledemo-routing.module';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DialogModule } from 'primeng/dialog';
 

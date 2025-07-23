@@ -17,6 +17,7 @@ export class FileDemoComponent implements OnInit {
     loading = [false, false, false];
     unidades: Unidade[] = [];
     isNewDiv: boolean = false;
+    divModify: boolean = false;
     representatives: any[] = [];
     statuses: any[] = [];
     searchQuery: string = '';
@@ -30,7 +31,9 @@ export class FileDemoComponent implements OnInit {
         bi_pessoa: "",
         senha_usuario: "",
         fk_unidade: "",
-        fk_tipo_acesso: 3
+        fk_tipo_acesso: 3,
+        id_morador : "",
+        id_pessoa : "",
     };
     showModal: boolean = false;
 
@@ -47,15 +50,22 @@ export class FileDemoComponent implements OnInit {
     }
 
     carregarUnidades() {
-        this.unidadeService.getUnidades().subscribe(
-            (resposta: Unidade[]) => {
-                this.unidades = resposta;
-                console.log(resposta);
-            },
-            (error) => {
-                console.error('Erro ao carregar unidades:', error);
-            }
-        );
+
+      this.unidadeService.getUnidades().subscribe({
+        next:(dados)=>{
+          this.unidades = dados
+        },
+        error:(error)=>{
+          console.error(`Erro ao carregar as aunidades : ${error}`)
+        }
+      })
+
+    }
+
+    abrirJanelaEditar(morador: any){
+      this.morador = {... morador}
+      this.divModify = true
+      console.log(this.morador)
     }
 
     fecharModal() {
@@ -102,7 +112,7 @@ export class FileDemoComponent implements OnInit {
         Swal.fire({
           position: 'top-end',
           icon: 'error',
-          title: 'Essa unidade encontra-se ocupado por um morador.',
+          title:mensagem,
           showConfirmButton: false,
           timer: 2000
         });
@@ -128,6 +138,52 @@ export class FileDemoComponent implements OnInit {
     load(index: number) {
         this.loading[index] = true;
         setTimeout(() => this.loading[index] = false, 1000);
+    }
+
+
+    eliminarMorador(idMorador: any){
+        this.http.delete<{mensagem: any}>(`http://192.168.1.59:5000/deletar/morador/${idMorador}`).subscribe({
+          next:(dados)=>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Aviso',
+              text: dados.mensagem,
+              confirmButtonText: 'OK'
+          });
+          this.carregarMoradores()
+          }, 
+          error:(error)=>{
+            Swal.fire({
+              icon: 'warning',
+              title: 'Aviso',
+              text: "Erro ao eliminar morador",
+              confirmButtonText: 'OK'
+          });
+          }
+        })
+    }
+
+    salvarEditar(){
+      this.http.put<{mensagem: any}>(`http://192.168.1.59:5000/editar/morador/${this.morador.id_pessoa}`,this.morador).subscribe({
+            next:(dados)=>{
+              Swal.fire({
+                icon: 'success',
+                title: 'Sucesso!',
+                text: dados.mensagem,
+                confirmButtonText: 'Ok'
+              });
+              this.carregarMoradores()
+              this.divModify = false
+            },
+            error:(error)=>{
+              Swal.fire({
+                icon: 'success',
+                title: 'Sucesso!',
+                text: "Erro ao Editar um Porteiro",
+                confirmButtonText: 'Ok'
+              });
+            }
+          })
     }
 
 

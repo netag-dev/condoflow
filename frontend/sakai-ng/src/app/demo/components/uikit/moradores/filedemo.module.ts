@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { TableDemoRoutingModule } from '../table/tabledemo-routing.module';
+import { TableDemoRoutingModule } from '../porteiros/tabledemo-routing.module';
 //import { TableDemoComponent } from '../table/tabledemo.component';
 //import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
