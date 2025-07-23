@@ -128,7 +128,7 @@ export class ContasComponent implements OnInit {
 
       this.despesas.forEach(despesa => {
       if (!this.isPDF(despesa.comprovativo_despesa)) {
-      const src = 'http://127.0.0.1:5000/uploads/' + despesa.comprovativo_despesa;
+      const src = 'http://192.168.1.59:5000/uploads/' + despesa.comprovativo_despesa;
       const caption = 'Comprovativo do pagamento';
       const thumb = src;
       const album = {
@@ -165,7 +165,7 @@ export class ContasComponent implements OnInit {
       Authorization: `Bearer ${token}`
       });
 
-        this.http.get<any>('http://127.0.0.1:5000/dados/contas', {headers}).subscribe(
+        this.http.get<any>('http://192.168.1.59:5000/dados/contas', {headers}).subscribe(
         (resposta: any) => {
         this.contas = resposta.tipos_despesas;
         this.despesasData.morador_id = resposta.dados_morador.id_morador;
@@ -174,14 +174,14 @@ export class ContasComponent implements OnInit {
       }
     );
 
-    this.http.get<any>('http://127.0.0.1:5000/lista/despesa_moradores', { headers }).subscribe(
+    this.http.get<any>('http://192.168.1.59:5000/lista/despesa_moradores', { headers }).subscribe(
       (resposta: any) => {
         this.carregaDespesas = resposta.despesas;
         console.log(resposta);
       }
     );
 
-    this.http.get('http://127.0.0.1:5000/lista/visitas', { headers }).subscribe(
+    this.http.get('http://192.168.1.59:5000/lista/visitas', { headers }).subscribe(
       (data: any) => {
        this.visitantes = data.visitas;
        console.log(data);
@@ -226,7 +226,7 @@ export class ContasComponent implements OnInit {
     }
 
         carregarDespesasTipo() {
-        this.http.get<{tipos: any[], Mensagem: string}>('http://127.0.0.1:5000/lista/tipoDespesas').subscribe(
+        this.http.get<{tipos: any[], Mensagem: string}>('http://192.168.1.59:5000/lista/tipoDespesas').subscribe(
         (resultado) => {
         this.despesas = resultado.tipos;
         console.log(resultado);
@@ -278,7 +278,7 @@ export class ContasComponent implements OnInit {
   
     const headers = new HttpHeaders(); 
   
-     this.http.post('http://127.0.0.1:5000/cadastrar/despesas', formData).subscribe(
+     this.http.post('http://192.168.1.59:5000/cadastrar/despesas', formData).subscribe(
       (response: any) => {
         if(response.mensagem){
           this.mostrarMensagemSucesso();

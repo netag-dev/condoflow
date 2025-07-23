@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
@@ -23,29 +25,41 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { MoneyModule } from './demo/components/money/money.module';
 import { CalendarModule } from 'primeng/calendar';
 import { MyProfileModule } from './demo/components/my-profile/my-profile.module';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io'; // Importe SocketIoConfig
 import { LightboxModule } from 'ngx-lightbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
-const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} }; // Defina o objeto SocketIoConfig
+
 
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule, 
-             HttpClientModule, TableModule, 
-             BlocksRoutingModule, CardModule,  FormsModule,
-             ModalModule.forRoot(), ServicosModule, DashboardUsuarioModule,
-             QRCodeModule, MoneyModule, CalendarModule,
-              MyProfileModule, SocketIoModule.forRoot(config),
-              LightboxModule, BrowserAnimationsModule
-            ],
-    providers: [
-        { provide: LocationStrategy, useClass: PathLocationStrategy },
-        CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+    declarations: [AppComponent, NotfoundComponent], // ❌ REMOVIDO RouterModule
+    imports: [
+      BrowserModule,           // ✅ Necessário para qualquer app Angular
+      RouterModule,            // ✅ Necessário para usar routerLink e router-outlet
+      AppRoutingModule,        // ✅ Seu módulo de rotas principal
+      AppLayoutModule,
+      HttpClientModule,
+      TableModule,
+      BlocksRoutingModule,
+      CardModule,
+      FormsModule,
+      ModalModule.forRoot(),
+      ServicosModule,
+      DashboardUsuarioModule,
+      QRCodeModule,
+      MoneyModule,
+      CalendarModule,
+      MyProfileModule,
+      LightboxModule,
+      BrowserAnimationsModule
     ],
-    bootstrap: [AppComponent],
-})
-export class AppModule {}
+    providers: [
+      { provide: LocationStrategy, useClass: PathLocationStrategy },
+      CountryService, CustomerService, EventService, IconService, NodeService,
+      PhotoService, ProductService
+    ],
+    bootstrap: [AppComponent]
+  })
+  export class AppModule {}
+  

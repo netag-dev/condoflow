@@ -48,7 +48,7 @@ export class VisitantesComponent implements OnInit {
   }
 
   carregarPermissoes() {
-    this.http.get('http://127.0.0.1:5000/lista/permissao/visitas').subscribe(
+    this.http.get('http://192.168.1.59:5000/lista/permissao/visitas').subscribe(
       (resultado: any) => {
         this.permissoes = resultado;
         localStorage.setItem('permissoes', JSON.stringify(this.permissoes));
@@ -77,7 +77,7 @@ export class VisitantesComponent implements OnInit {
     formData.append('unidade_id', this.visitante.unidade_id);
     formData.append('comprovativo_despesa', this.visitante.comprovativo_despesa);
     
-    this.http.post('http://127.0.0.1:5000/cadastrar/visitas', formData).subscribe(
+    this.http.post('http://192.168.1.59:5000/cadastrar/visitas', formData).subscribe(
       (response: any) => {
         if (response.mensagem) {
           this.mostrarMensagemSucesso();
@@ -102,7 +102,7 @@ export class VisitantesComponent implements OnInit {
   
 
   carregarBlocos() {
-    this.http.get<any[]>('http://127.0.0.1:5000/lista/blocos').subscribe(
+    this.http.get<any[]>('http://192.168.1.59:5000/lista/blocos').subscribe(
       (resultado: any) => {
         this.blocos = resultado.blocos;
         console.log(resultado);
@@ -120,7 +120,7 @@ export class VisitantesComponent implements OnInit {
   }
 
   carregarUnidades() {
-    this.http.get<any[]>('http://127.0.0.1:5000/lista/unidade').subscribe(
+    this.http.get<any[]>('http://192.168.1.59:5000/lista/unidade').subscribe(
       (resultado) => {
         this.unidades = resultado;
         console.log(resultado);
@@ -129,7 +129,7 @@ export class VisitantesComponent implements OnInit {
   }
 
   carregarMoradorPorUnidade(unidade_id: number) {
-    this.http.get<any>(`http://127.0.0.1:5000/lista/morador/unidade/${unidade_id}`).subscribe(
+    this.http.get<any>(`http://192.168.1.59:5000/lista/morador/unidade/${unidade_id}`).subscribe(
       (resultado) => {
         if (resultado.nome_morador) {
           this.nomeMorador = resultado.nome_morador;

@@ -35,7 +35,6 @@
         "ng2-lightbox": "^0.0.0",
         "ngx-bootstrap": "^12.0.0",
         "ngx-lightbox": "^3.0.0",
-        "ngx-socket-io": "^4.7.0",
         "pdfmake": "^0.2.10",
         "primeflex": "^3.3.1",
         "primeicons": "6.0.1",

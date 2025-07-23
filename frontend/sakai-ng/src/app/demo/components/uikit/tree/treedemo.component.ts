@@ -37,7 +37,7 @@ export class TreeDemoComponent implements OnInit {
         this.carregarAreasReservas();
          }
     carregarBlocos(){
-        this.http.get<any[]>('http://127.0.0.1:5000/lista/blocos').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/lista/blocos').subscribe(
             (resultado: any) => {
               this.blocos = resultado.blocos;  
             console.log(resultado);
@@ -57,7 +57,7 @@ export class TreeDemoComponent implements OnInit {
     addAreaReserva() {
 
         // Faz a solicitação HTTP POST com os dados da área de reserva
-        this.http.post('http://127.0.0.1:5000/cadastrar/area_reserva', this.area_reserva).subscribe(
+        this.http.post('http://192.168.1.59:5000/cadastrar/area_reserva', this.area_reserva).subscribe(
             (resultado: any) => {
                 if (resultado.mensagem) {
                     this.mostrarMensagemSucesso(); // Mostra uma mensagem de sucesso

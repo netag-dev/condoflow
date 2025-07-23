@@ -80,7 +80,7 @@ export class CrudComponent implements OnInit {
 
 
      carregarSindico() {
-        this.http.get<any[]>('http://127.0.0.1:5000/lista/sindico').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/lista/sindico').subscribe(
           (resultado) => {
             this.sindicos = resultado;
             console.log(resultado);
@@ -101,7 +101,7 @@ export class CrudComponent implements OnInit {
       }
 
     carregarEndereco() {
-        this.http.get<any[]>('http://127.0.0.1:5000/endereco').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/endereco').subscribe(
           (resultado) => {
             const res = resultado;
             const values = Object.values(res);
@@ -131,7 +131,7 @@ export class CrudComponent implements OnInit {
         this.mostrarMensagemVazio();
              return; 
               }
-             this.http.post('http://127.0.0.1:5000/cadastrar/condominios', this.condominio).subscribe(
+             this.http.post('http://192.168.1.59:5000/cadastrar/condominios', this.condominio).subscribe(
                (response: any) => {
                  if (response.mensagem) {
                    this.mostrarMensagemSucesso();
@@ -166,7 +166,7 @@ export class CrudComponent implements OnInit {
 
 
     carregarTipoCondominio(){
-        this.http.get<any[]>('http://127.0.0.1:5000/lista/tipocondominio').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/lista/tipocondominio').subscribe(
           (resultado) => {
             this.tipos = resultado;
              console.log(resultado);

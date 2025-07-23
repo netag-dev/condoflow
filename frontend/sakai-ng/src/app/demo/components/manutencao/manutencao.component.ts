@@ -83,7 +83,7 @@ export class ManutencaoComponent implements OnInit {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    this.http.get<any>('http://127.0.0.1:5000/dados/manutencao', { headers }).subscribe(
+    this.http.get<any>('http://192.168.1.59:5000/dados/manutencao', { headers }).subscribe(
       (resposta: any) => {
         this.manutencoes = resposta.tipos_manutencao;
         this.manutencao.morador_id = resposta.dados_morador.id_morador;
@@ -92,14 +92,14 @@ export class ManutencaoComponent implements OnInit {
       }
     );
 
-    this.http.get<any>('http://127.0.0.1:5000/lista/manutencao_moradores', { headers }).subscribe(
+    this.http.get<any>('http://192.168.1.59:5000/lista/manutencao_moradores', { headers }).subscribe(
       (resposta: any) => {
         this.manuten = resposta.manutencao;
         console.log(resposta);
       }       
     );
 
-    this.http.get('http://127.0.0.1:5000/lista/visitas', { headers }).subscribe(
+    this.http.get('http://192.168.1.59:5000/lista/visitas', { headers }).subscribe(
       (data: any) => {
        this.visitantes = data.visitas;
        console.log(data);
@@ -119,7 +119,7 @@ export class ManutencaoComponent implements OnInit {
     }
 
   addManutencao() {
-    this.http.post('http://127.0.0.1:5000/cadastrar/pedido_manutencao', this.manutencao).subscribe(
+    this.http.post('http://192.168.1.59:5000/cadastrar/pedido_manutencao', this.manutencao).subscribe(
       (data: any) => {
         this.mostrarMensagemSucesso();
         setTimeout(() => {

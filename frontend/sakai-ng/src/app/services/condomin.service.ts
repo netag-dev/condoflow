@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CondominService {
-  SERVER_URL = 'http://127.0.0.1:5000';
+  SERVER_URL = 'http://192.168.1.59:5000';
 
   constructor(private http: HttpClient) { }
 

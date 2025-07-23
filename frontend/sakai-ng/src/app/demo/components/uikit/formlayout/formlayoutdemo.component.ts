@@ -56,7 +56,7 @@ export class FormLayoutDemoComponent {
 
       id_reserva!: any;
       aprovarReserva(id_reserva: number) {
-        this.http.put(`http://127.0.0.1:5000/aprovar/reserva/${id_reserva}`, {}).subscribe(
+        this.http.put(`http://192.168.1.59:5000/aprovar/reserva/${id_reserva}`, {}).subscribe(
           (response: any) => {
              this.mostrarMensagemSucesso()
              setTimeout(() => {
@@ -83,7 +83,7 @@ export class FormLayoutDemoComponent {
         const headers = new HttpHeaders({
             Authorization: `Bearer ${token}`
         });
-        this.http.get<any>('http://127.0.0.1:5000/admin/lista/reservas', {headers}).subscribe(
+        this.http.get<any>('http://192.168.1.59:5000/admin/lista/reservas', {headers}).subscribe(
             (resposta: any) => {
                 if (resposta && resposta.admin) {
                   this.pedidos = resposta.admin; // Transformar o objeto em um array

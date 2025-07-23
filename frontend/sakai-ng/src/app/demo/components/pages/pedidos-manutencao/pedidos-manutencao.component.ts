@@ -38,7 +38,7 @@ export class PedidosManutencaoComponent implements OnInit{
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`
       });
-      this.http.get<any>('http://127.0.0.1:5000/admin/lista/manutencao', { headers }).subscribe(
+      this.http.get<any>('http://192.168.1.59:5000/admin/lista/manutencao', { headers }).subscribe(
         (resposta: any) => {
           this.pedidos = resposta.manutencao;
           console.log(resposta);

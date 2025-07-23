@@ -98,12 +98,12 @@
                     <td > {{ despesa.valor_despesa }} </td>
                     <td>
                         <ng-container *ngIf="isPDF(despesa.comprovativo_despesa); else showImage">
-                          <a style="text-transform: uppercase;font-weight:800;" class="text-gray-600" [href]="'http://127.0.0.1:5000/uploads/' + despesa.comprovativo_despesa" target="_blank">
+                          <a style="text-transform: uppercase;font-weight:800;" class="text-gray-600" [href]="'http://192.168.1.59:5000/uploads/' + despesa.comprovativo_despesa" target="_blank">
                              <i style="color:red; font-size: 3em;" class="pi pi-file-pdf"></i>
                           </a>
                         </ng-container>
                         <ng-template #showImage>
-                            <img [src]="'http://127.0.0.1:5000/uploads/' + despesa.comprovativo_despesa"
+                            <img [src]="'http://192.168.1.59:5000/uploads/' + despesa.comprovativo_despesa"
                             alt="Comprovativo do pagamento"
                             width="100"
                             (click)="openLightbox(getImageIndex(despesa.comprovativo_despesa))" />

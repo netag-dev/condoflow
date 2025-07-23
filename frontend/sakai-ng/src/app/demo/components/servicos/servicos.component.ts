@@ -41,7 +41,7 @@ ngOnInit(): void{
 }
 
 carregarReservasAprovados(){
-   this.http.get<any[]>('http://127.0.0.1:5000/lista/reservasAprovado').subscribe(
+   this.http.get<any[]>('http://192.168.1.59:5000/lista/reservasAprovado').subscribe(
     (resultado: any) => {
       this.reservas = resultado;
       console.log(resultado);

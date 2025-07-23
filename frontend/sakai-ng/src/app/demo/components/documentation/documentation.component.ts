@@ -39,7 +39,7 @@ export class DocumentationComponent implements OnInit{
         };
      
         carregarTiposUnidades(){
-            this.http.get<any[]>('http://127.0.0.1:5000/lista/tipoUnidades').subscribe(
+            this.http.get<any[]>('http://192.168.1.59:5000/lista/tipoUnidades').subscribe(
                 (resultado) => {
                   this.tipoUnidades = resultado;
                    console.log(resultado);
@@ -60,7 +60,7 @@ export class DocumentationComponent implements OnInit{
         }
           
         carregarBlocos(){
-            this.http.get<any[]>('http://127.0.0.1:5000/lista/blocos').subscribe(
+            this.http.get<any[]>('http://192.168.1.59:5000/lista/blocos').subscribe(
                 (resultado:any) => {
                   this.blocos = resultado.blocos;
                    console.log(resultado);
@@ -108,7 +108,7 @@ export class DocumentationComponent implements OnInit{
         this.mostrarMensagemVazio();
          return; 
           }
-         this.http.post('http://127.0.0.1:5000/cadastrar/unidade', this.unidades).subscribe(
+         this.http.post('http://192.168.1.59:5000/cadastrar/unidade', this.unidades).subscribe(
            (response: any) => {
              if (response.mensagem) {
                this.mostrarMensagemSucesso();

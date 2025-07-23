@@ -148,7 +148,7 @@ fetchData(): void{
     Authorization: `Bearer ${token}`
   });
 
-  this.http.get('http://127.0.0.1:5000/user/protected', {headers}).subscribe(
+  this.http.get('http://192.168.1.59:5000/user/protected', {headers}).subscribe(
     (resposta: any) => {
       console.log(resposta);
     }

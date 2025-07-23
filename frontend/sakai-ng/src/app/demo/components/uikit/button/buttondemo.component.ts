@@ -56,7 +56,7 @@ export class ButtonDemoComponent implements OnInit {
         this.mostrarMensagemVazio();
          return; 
           }
-         this.http.post('http://127.0.0.1:5000/cadastrar/sindico', this.sindico).subscribe(
+         this.http.post('http://192.168.1.59:5000/cadastrar/sindico', this.sindico).subscribe(
            (response: any) => {
              if (response.mensagem) {
                this.mostrarMensagemSucesso();
@@ -83,7 +83,7 @@ export class ButtonDemoComponent implements OnInit {
        }  
 
     carregarEndereco() {
-        this.http.get<any[]>('http://127.0.0.1:5000/endereco').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/endereco').subscribe(
           (resultado) => {
             const res = resultado;
             const values = Object.values(res);
@@ -127,7 +127,7 @@ export class ButtonDemoComponent implements OnInit {
               );
         }
         carregarStatus() {
-            this.http.get<any[]>('http://127.0.0.1:5000/status').subscribe(
+            this.http.get<any[]>('http://192.168.1.59:5000/status').subscribe(
               (resultado) => {
                 const res = resultado;
                 const values = Object.values(res);

@@ -33,7 +33,7 @@ export class MediaDemoComponent implements OnInit {
     constructor(private eventosService:EventosService ,private bloco: BlocosService, private http: HttpClient) { }
 
     addEventos() {
-        this.http.post('http://127.0.0.1:5000/cadastrar/eventos', this.evento).subscribe(
+        this.http.post('http://192.168.1.59:5000/cadastrar/eventos', this.evento).subscribe(
         (response: any) => {
             this.mostrarMensagemSucesso(); // Mostra uma mensagem de sucesso
             setTimeout(() => {
@@ -61,7 +61,7 @@ export class MediaDemoComponent implements OnInit {
      }
 
     carregarBlocos(){
-        this.http.get<any[]>('http://127.0.0.1:5000/lista/blocos').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/lista/blocos').subscribe(
             (resultado: any) => {
               this.blocos = resultado.blocos;  
             console.log(resultado);

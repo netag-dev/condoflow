@@ -14,7 +14,7 @@ export class AuthServiceService {
     this.checkToken();
   }
 
-  private apiUr = 'http://127.0.0.1:5000/user/reset-pass';
+  private apiUr = 'http://192.168.1.59:5000/user/reset-pass';
 
   resetPassword(token: string, newPassword: string): Observable<any> {
 
@@ -88,7 +88,7 @@ export class AuthServiceService {
   fetchUserInfo(): Observable<any> {
     const token = this.getToken();
     if (token) {
-      return this.http.get('http://127.0.0.1:5000/info/morador', {
+      return this.http.get('http://192.168.1.59:5000/info/morador', {
         headers: new HttpHeaders({
           Authorization: `Bearer ${token}`
         })

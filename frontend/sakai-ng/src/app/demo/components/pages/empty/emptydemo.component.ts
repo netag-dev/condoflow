@@ -21,7 +21,7 @@ export class EmptyDemoComponent implements OnInit {
       return;
     }
 
-    this.http.post('http://127.0.0.1:5000/cadastrar/tipoEstacionamento', this.tipoEstacionamento).subscribe(
+    this.http.post('http://192.168.1.59:5000/cadastrar/tipoEstacionamento', this.tipoEstacionamento).subscribe(
       (response: any) => {
         if (response.mensagem) {
           this.mostrarMensagemSucesso();

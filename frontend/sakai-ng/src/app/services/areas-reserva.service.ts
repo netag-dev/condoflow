@@ -9,7 +9,7 @@ export class AreasReservaService {
 
   constructor(private http: HttpClient) { }
 
-  SERVER_URL = 'http://127.0.0.1:5000';
+  SERVER_URL = 'http://192.168.1.59:5000';
 
   public getAreasReserva(): Observable<AreasReservas[]>{
     return this.http.get<AreasReservas[]>(`${this.SERVER_URL}/lista/areas_reserva`);

@@ -42,7 +42,7 @@ fetchData(){
   const headers = new HttpHeaders({
     Authorization: `Beaber ${token}`
   });
-  this.http.get<any>('http://127.0.0.1:5000/admin/lista/despesa_moradores', { headers }).subscribe(
+  this.http.get<any>('http://192.168.1.59:5000/admin/lista/despesa_moradores', { headers }).subscribe(
     (resposta: any) => {
       this.despesas = resposta.despesas;
       console.log(resposta);
@@ -67,7 +67,7 @@ fetchData(){
 
    id_despesa!: any;    
    aprovarPagamento(id_despesa: number){
-    this.http.put(`http://127.0.0.1:5000/aprovar/pagamento/${id_despesa}`, {}).subscribe(
+    this.http.put(`http://192.168.1.59:5000/aprovar/pagamento/${id_despesa}`, {}).subscribe(
       (response: any) => {
          this.mostrarMensagemSucesso();
          setTimeout(() => {

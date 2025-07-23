@@ -44,6 +44,45 @@
 					 	</div>
 				</div>
 			</div>
+
+			<div class="col-12" *ngIf="divModify">
+				<div class="card">
+					<h2 class="text-gray-600"> Editar Porteiro </h2> <hr>
+					<div class="p-fluid p-formgrid grid">
+						<div class="field col-12 md:col-4">
+							<label class="text-gray-700"  htmlFor="firstname2"> Nome do porteiro </label>
+							<input [(ngModel)]="porteiro.nome_porteiro" pInputText id="firstname2"  placeholder="Nome" type="text" />
+						</div>
+						<div class="field col-12 md:col-4">
+							<label class="text-gray-700" htmlFor="lastname2"> Telefone do porteiro </label>
+							<p-inputMask [(ngModel)]="porteiro.telefone_porteiro" mask="999999999" placeholder="(+244) 999-999-999"></p-inputMask>
+						 
+						 </div>
+						<div class="field col-12 md:col-4">
+							<label class="text-gray-700" htmlFor="address"> BI </label>
+							<input pInputText [(ngModel)]="porteiro.bi_porteiro"  id="address"  placeholder="Bilhete de Identidade" rows="4" />
+						</div>
+
+						<div class="field col-12 md:col-4">
+                             <label class="text-gray-700" for="status"> email de acesso: <span style="color:red;"> * </span> </label>
+							
+							 <input pInputText id="address" [(ngModel)]="porteiro.email_porteiro"  placeholder="Email do porteiro" rows="4" />
+
+							</div>
+						
+						<div class="field col-12 md:col-4">
+							<label class="text-gray-700" for="status"> Senha provisória: <span style="color:red;"> * </span> </label>
+							
+							<input pInputText type="password" [(ngModel)]="porteiro.senha_porteiro" id="address"  placeholder="Palavra passe" rows="4" />
+
+                         </div>
+						<div class="col-12 md:col-6">
+						 <button pButton (click)="addPorteiro()" class="p-button-rounded p-button-success" style="text-transform: uppercase;" label="Salvar"></button>
+						</div>
+												 
+					 	</div>
+				</div>
+			</div>
 						
 			<div style="display: flex;align-items: center;gap:10px">  
 				<button [loading]="loading[0]" (click)="toggleNewDiv()"  (click)="load(0)" pButton label="{{ isNewDiv ? 'Mostrar a Tabela' : 'Novo Porteiro' }}" style="text-transform: uppercase;" class="p-button-rounded mb-2" icon="pi pi-plus"></button>
@@ -110,9 +149,9 @@
 					<td><span style="font-size: 16px;" class="image-text ml-2"> {{ porteiro.bi_porteiro }} </span></td>
 					<td style="font-size: 16px;"> {{ porteiro.email_porteiro }} </td>
 					<td>
-					  <button title="Editar os dados do porteiro" pButton class="mr-2 p-button-success"  (click)="showModal = true"><i class="pi pi-pencil"></i></button>
+					  <button title="Editar os dados do porteiro" pButton class="mr-2 p-button-success"  (click)="abrirModal(porteiro)"><i class="pi pi-pencil"></i></button>
 
-					  <button title="Desativar conta" pButton (click)="eliminarPorteiro(listaPorteiros.id_porteiro)" class="p-button-danger" ><i class="pi pi-lock"></i></button>
+					  <button title="Desativar conta" pButton (click)="eliminarPorteiro(porteiro.id_porteiro)" class="p-button-danger" ><i class="pi pi-lock"></i></button>
 					</td>
 				  </tr>
 				</ng-template>

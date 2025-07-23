@@ -122,7 +122,7 @@ carregarAreasReserva(){
 }
 
   carregarBlocos() {
-    this.http.get<any[]>('http://127.0.0.1:5000/lista/blocos').subscribe(
+    this.http.get<any[]>('http://192.168.1.59:5000/lista/blocos').subscribe(
       (resultado: any) => {
         this.blocos = resultado.blocos;
         console.log(resultado);
@@ -138,7 +138,7 @@ carregarAreasReserva(){
   }
 
   addReserva(){    
-       this.http.post('http://127.0.0.1:5000/cadastrar/reservas', this.reservas).subscribe(
+       this.http.post('http://192.168.1.59:5000/cadastrar/reservas', this.reservas).subscribe(
          (response: any) => {
            if (response.mensagem) {
              this.mostrarMensagemSucesso();

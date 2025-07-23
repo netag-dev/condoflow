@@ -39,7 +39,7 @@ sessionStorage.removeItem('currentUser');
   }
    emergencias: any[] = [];
   carregarEmergencias() {
-    this.http.get<any>('http://127.0.0.1:5000/lista/emergencias').subscribe(
+    this.http.get<any>('http://192.168.1.59:5000/lista/emergencias').subscribe(
       (data: any) => {
         this.emergencias = data.emergencias;
         console.log(data);

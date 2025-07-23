@@ -37,7 +37,7 @@ export class InputDemoComponent implements OnInit {
     }
 
     carregarUnidades(){
-    this.http.get<any[]>('http://127.0.0.1:5000/lista/unidade').subscribe(
+    this.http.get<any[]>('http://192.168.1.59:5000/lista/unidade').subscribe(
         (resultado) => {
             this.unidades = resultado;
             console.log(resultado)
@@ -46,7 +46,7 @@ export class InputDemoComponent implements OnInit {
     }
 
     carregarBlocos(){
-        this.http.get<any[]>('http://127.0.0.1:5000/lista/blocos').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/lista/blocos').subscribe(
             (resultado: any) => {
                 this.blocos = resultado.blocos;
                 console.log(resultado)
@@ -55,7 +55,7 @@ export class InputDemoComponent implements OnInit {
         }
 
         carregarTipoEstacionamento(){
-            this.http.get<any[]>('http://127.0.0.1:5000/lista/tipoEstacionamento').subscribe(
+            this.http.get<any[]>('http://192.168.1.59:5000/lista/tipoEstacionamento').subscribe(
                 (resultado) => {
                     this.tipoEstacionamentos = resultado
                     console.log(resultado)
@@ -64,7 +64,7 @@ export class InputDemoComponent implements OnInit {
             }
 
     carregarStatus(){
-        this.http.get<any[]>('http://127.0.0.1:5000/lista/status_condo').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/lista/status_condo').subscribe(
             (resultado) => {
                 this.status_condo = resultado
                 console.log(resultado)
@@ -124,7 +124,7 @@ export class InputDemoComponent implements OnInit {
         this.mostrarMensagemVazio();
          return; 
           }
-         this.http.post('http://127.0.0.1:5000/cadastrar/estacionamento', this.estacionamentos).subscribe(
+         this.http.post('http://192.168.1.59:5000/cadastrar/estacionamento', this.estacionamentos).subscribe(
            (response: any) => {
              if (response.mensagem) {
                this.mostrarMensagemSucesso();

@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class StatusCondoService {
 
-  SERVER_URL = 'http://127.0.0.1:5000';
+  SERVER_URL = 'http://192.168.1.59:5000';
    
   constructor(private http:HttpClient) { }
 
   public getStatus_condo(): Observable<statusCondos[]> {
-    return this.http.get<statusCondos[]>('http://127.0.0.1:5000/lista/status_condo');
+    return this.http.get<statusCondos[]>('http://192.168.1.59:5000/lista/status_condo');
   }
   // http://localhost:5000/lista/status_condo
 }

@@ -63,7 +63,7 @@ export class FileDemoComponent implements OnInit {
     }
 
     addMoradores() {
-        this.http.post('http://127.0.0.1:5000/cadastrar/morador', this.morador).subscribe(
+        this.http.post('http://192.168.1.59:5000/cadastrar/morador', this.morador).subscribe(
           (resposta: any) => {
             if (resposta.mensagem) {
               if (resposta.mensagem.includes('sucesso')) {
@@ -110,7 +110,7 @@ export class FileDemoComponent implements OnInit {
     
 
     carregarMoradores(){
-      this.http.get<any>('http://127.0.0.1:5000/lista/moradores').subscribe(
+      this.http.get<any>('http://192.168.1.59:5000/lista/moradores').subscribe(
        data => {
         this.listaMoradores = data;
         console.log(data);

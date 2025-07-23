@@ -37,7 +37,7 @@ export class SegurancaComponent implements OnInit, OnDestroy {
 
   total: number = 0;
   carregarVisitantes() {
-    this.http.get<any>('http://127.0.0.1:5000/lista/visitantes/seguranca').subscribe(
+    this.http.get<any>('http://192.168.1.59:5000/lista/visitantes/seguranca').subscribe(
       (data: any) => {
         this.visitantes = data.visitas;
         console.log(data);
@@ -56,7 +56,7 @@ export class SegurancaComponent implements OnInit, OnDestroy {
   }
 
   verCompleto(id: number) {
-    this.http.get<any>(`http://127.0.0.1:5000/visitante/seguranca/${id}`).subscribe(
+    this.http.get<any>(`http://192.168.1.59:5000/visitante/seguranca/${id}`).subscribe(
       (data: any) => {
         this.visitanteDetalhes = data.visitante;
         this.showModal = true;

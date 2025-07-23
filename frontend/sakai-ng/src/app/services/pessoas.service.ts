@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PessoasService {
-  SERVER_URL = 'http://127.0.0.1:5000';
+  SERVER_URL = 'http://192.168.1.59:5000';
 
   constructor(private http: HttpClient) { }
 
  public getPessoas(): Observable<Pessoa[]> {
-  return this.http.get<Pessoa[]>('http://127.0.0.1:5000/lista/porteiros');
+  return this.http.get<Pessoa[]>('http://192.168.1.59:5000/lista/porteiros');
  }
 
  public eliminarPessoa(id_pessoa: number):Observable<any>{

@@ -70,7 +70,7 @@ setUserEmail() {
 
       id_visitante!:any;    
       autorizarEntrada(id_visitante: number){
-       this.http.put(`http://127.0.0.1:5000/aprovar/visita/${id_visitante}`, {}).subscribe(
+       this.http.put(`http://192.168.1.59:5000/aprovar/visita/${id_visitante}`, {}).subscribe(
         (response:any) => {
           this.mostrarMensagemSucesso();
           setTimeout(() => {
@@ -85,7 +85,7 @@ setUserEmail() {
             destinatario: visitante.contacto_visitante,
             mensagem: 'Olá, estás autorizado a entrar!'
           };
-          this.http.post('http://127.0.0.1:5000/cadastrar/enviar_sms', payload).subscribe(
+          this.http.post('http://192.168.1.59:5000/cadastrar/enviar_sms', payload).subscribe(
             (response: any) => {
               console.log('SMS enviado com sucesso:', response);
             }
@@ -103,7 +103,7 @@ setUserEmail() {
       Authorization: `Bearer ${token}`
     });
     
-    this.http.get('http://127.0.0.1:5000/lista/visitas', { headers }).subscribe(
+    this.http.get('http://192.168.1.59:5000/lista/visitas', { headers }).subscribe(
      (data: any) => {
       this.visitantes = data.visitas;
       console.log(data);

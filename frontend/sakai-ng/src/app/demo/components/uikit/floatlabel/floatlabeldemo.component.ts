@@ -78,7 +78,7 @@ carregarBlocos() {
          this.mostrarMensagemVazio();
          return;
      }
-      this.http.post('http://127.0.0.1:5000/cadastrar/bloco', this.blocos).subscribe(
+      this.http.post('http://192.168.1.59:5000/cadastrar/bloco', this.blocos).subscribe(
         (response: any) => {
         if (response.mensagem) {
             this.mostrarMensagemSucesso();
@@ -107,7 +107,7 @@ carregarBlocos() {
     }
 
     carregarCondominios(){
-        this.http.get<any[]>('http://127.0.0.1:5000/lista/condominios').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/lista/condominios').subscribe(
             (resultado: any) => {
              this.condominios = resultado.condominios;    
             console.log(this.condominios);

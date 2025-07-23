@@ -15,7 +15,7 @@ export class TipoManutencaoComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   addTipoManutencao(){
-    this.http.post('http://127.0.0.1:5000:/cadastrar/tipoManutencao', this.tipoManu).subscribe(
+    this.http.post('http://192.168.1.59:5000:/cadastrar/tipoManutencao', this.tipoManu).subscribe(
       (data: any) => {
       this.mostrarMensagemSuccesso();
       setTimeout(() => {

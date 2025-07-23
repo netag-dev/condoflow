@@ -24,7 +24,7 @@ export class IconsComponent implements OnInit {
             this.mostrarMensagemVazio();
             return;
         }
-        this.http.post('http://127.0.0.1:5000/cadastrar/tipoUnidades', this.tipoUni).subscribe(
+        this.http.post('http://192.168.1.59:5000/cadastrar/tipoUnidades', this.tipoUni).subscribe(
             (response: any) => {
                 if (response.mensagem) {
                     this.mostrarMensagemSucesso();

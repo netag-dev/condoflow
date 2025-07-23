@@ -65,7 +65,7 @@ formatTime(date: Date): string {
 }
  
   carregarBlocos() {
-    this.http.get<any[]>('http://127.0.0.1:5000/lista/blocos').subscribe(
+    this.http.get<any[]>('http://192.168.1.59:5000/lista/blocos').subscribe(
       (resultado: any) => {
         this.blocos = resultado.blocos;
         console.log(resultado);
@@ -77,7 +77,7 @@ formatTime(date: Date): string {
   }
    tipo_reservas: any[] = []; 
   carregarTipoReservas(){
-    this.http.get<any[]>('http://127.0.0.1:5000/lista/tipoReservas').subscribe(
+    this.http.get<any[]>('http://192.168.1.59:5000/lista/tipoReservas').subscribe(
       (resultado: any) => {
        this.tipo_reservas = resultado.tipo_reservas; 
       console.log(resultado)
@@ -130,7 +130,7 @@ formatTime(date: Date): string {
       fim_reserva: formattedFimReserva
     };
 
-    this.http.post('http://127.0.0.1:5000/cadastrar/reservas', formData).subscribe(
+    this.http.post('http://192.168.1.59:5000/cadastrar/reservas', formData).subscribe(
       (response: any) => {
         if (response.mensagem) {
            this.mostrarMensagemSucesso();
@@ -168,7 +168,7 @@ fetchData() {
     Authorization: `Bearer ${token}`
   });
 
-  this.http.get<any>('http://127.0.0.1:5000/dados/reservas', { headers }).subscribe(
+  this.http.get<any>('http://192.168.1.59:5000/dados/reservas', { headers }).subscribe(
     (resposta: any) => {
       if (resposta && resposta.dados_morador) {
         this.pega = resposta.dados_morador;
@@ -183,7 +183,7 @@ fetchData() {
     }
   );
 
-  this.http.get<any>('http://127.0.0.1:5000/lista/reservas', { headers }).subscribe(
+  this.http.get<any>('http://192.168.1.59:5000/lista/reservas', { headers }).subscribe(
     (resposta: any) => {
       if (resposta && resposta.reservas) {
         this.carregarReservas = resposta.reservas;
@@ -197,7 +197,7 @@ fetchData() {
     }
   );
 
-  this.http.get('http://127.0.0.1:5000/lista/visitas', { headers }).subscribe(
+  this.http.get('http://192.168.1.59:5000/lista/visitas', { headers }).subscribe(
     (data: any) => {
      this.visitantes = data.visitas;
      console.log(data);

@@ -10,6 +10,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   logout(): Observable<any>{
-    return this.http.post<any>('http://127.0.0.1:5000/sair/logout', {});
+    return this.http.post<any>('http://192.168.1.59:5000/sair/logout', {});
   }
 }

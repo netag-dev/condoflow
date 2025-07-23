@@ -34,7 +34,7 @@ export class LoginComponent {
             this.mostrarMensagemAviso();
             return;    
         }
-        this.http.post<any>('http://127.0.0.1:5000/user/login', credentials, {withCredentials: true}).subscribe(    
+        this.http.post<any>('http://192.168.1.59:5000/user/login', credentials, {withCredentials: true}).subscribe(    
         (response: any) => {
         if (response.token) {
             const token = response.token;

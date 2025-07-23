@@ -126,7 +126,7 @@ export class AlertasEmergenciaComponent implements OnInit {
       Authorization: `Bearer ${token}`
     });
 
-    this.http.get('http://127.0.0.1:5000/lista/visitas', { headers }).subscribe(
+    this.http.get('http://192.168.1.59:5000/lista/visitas', { headers }).subscribe(
       (data: any) => {
         this.visitantes = data.visitas;
         console.log(data);
@@ -139,7 +139,7 @@ export class AlertasEmergenciaComponent implements OnInit {
       }
     );
 
-    this.http.get<any>('http://127.0.0.1:5000/dados/contas', { headers }).subscribe(
+    this.http.get<any>('http://192.168.1.59:5000/dados/contas', { headers }).subscribe(
       (resposta: any) => {
         this.moradorId = resposta.dados_morador.id_morador;
         this.unidadeId = resposta.dados_morador.id_unidade;
@@ -151,7 +151,7 @@ export class AlertasEmergenciaComponent implements OnInit {
     );
 
       
-    this.http.get('http://127.0.0.1:5000/listar/emergencias', { headers }).subscribe(
+    this.http.get('http://192.168.1.59:5000/listar/emergencias', { headers }).subscribe(
       (data: any) => {
         this.emergencias = data.emergencia;
         console.log(data);

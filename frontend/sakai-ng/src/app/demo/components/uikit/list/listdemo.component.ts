@@ -21,7 +21,7 @@ export class ListDemoComponent implements OnInit {
             this.mostrarMensagemVazio();
             return;
         }
-        this.http.post('http://127.0.0.1:5000/cadastrar/status', this.statusCondo).subscribe(
+        this.http.post('http://192.168.1.59:5000/cadastrar/status', this.statusCondo).subscribe(
             (response: any) => {
                 if (response.mensagem){
                     this.mostrarMensagemSucesso();

@@ -26,7 +26,7 @@ export class TimelineDemoComponent implements OnInit {
         return;
     }
 
-    this.http.post('http://127.0.0.1:5000/cadastrar/tipoCondominio', this.tipocondomin)
+    this.http.post('http://192.168.1.59:5000/cadastrar/tipoCondominio', this.tipocondomin)
         .subscribe((response: any) => {
             if(response.mensagem) {
                 this.mostrarMensagemSucesso();

@@ -34,7 +34,7 @@ export class MiscDemoComponent implements OnInit{
      
       id_visitante!:any;    
       autorizarEntrada(id_visitante: number){
-       this.http.put(`http://127.0.0.1:5000/aprovar/visita/${id_visitante}`, {}).subscribe(
+       this.http.put(`http://192.168.1.59:5000/aprovar/visita/${id_visitante}`, {}).subscribe(
         (response:any) => {
           this.mostrarMensagemSucesso();
           setTimeout(() => {
@@ -49,7 +49,7 @@ export class MiscDemoComponent implements OnInit{
             destinatario: visitante.contacto_visitante,
             mensagem: 'Olá, estás autorizado a entrar!'
           };
-          this.http.post('http://127.0.0.1:5000/cadastrar/enviar_sms', payload).subscribe(
+          this.http.post('http://192.168.1.59:5000/cadastrar/enviar_sms', payload).subscribe(
             (response: any) => {
               console.log('SMS enviado com sucesso:', response);
             }
@@ -118,7 +118,7 @@ export class MiscDemoComponent implements OnInit{
       }
 
       carregarStatus() {
-        this.http.get<any[]>('http://127.0.0.1:5000/status').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/status').subscribe(
           (resultado) => {
             const res = resultado;
             const values = Object.values(res);
@@ -140,7 +140,7 @@ export class MiscDemoComponent implements OnInit{
       }  
 
       carregarEndereco() {
-        this.http.get<any[]>('http://127.0.0.1:5000/endereco').subscribe(
+        this.http.get<any[]>('http://192.168.1.59:5000/endereco').subscribe(
           (resultado) => {
             const res = resultado;
             const values = Object.values(res);
@@ -169,7 +169,7 @@ export class MiscDemoComponent implements OnInit{
         this.mostrarMensagemVazio();
          return; 
           }
-         this.http.post('http://127.0.0.1:5000/cadastrar/visitante', this.visitante).subscribe(
+         this.http.post('http://192.168.1.59:5000/cadastrar/visitante', this.visitante).subscribe(
            (response: any) => {
              if (response.mensagem) {
                this.mostrarMensagemSucesso();
