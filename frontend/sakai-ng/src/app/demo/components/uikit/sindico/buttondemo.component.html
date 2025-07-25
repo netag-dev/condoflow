@@ -102,22 +102,38 @@
 						<td><span class="image-text ml-2"> {{ relative.bi_sindico }} </span></td>
 						<td> {{ relative.email_sindico }} </td>
 						<td>
-							<button pButton class="mr-2 p-button-success" (click)="getEmployee(relative.id_sindico)" (click)="showModal = true"><i class="pi pi-pencil"></i></button>
+							<button pButton class="mr-2 p-button-success" (click)="getEmployee(relative)" (click)="showModal = true"><i class="pi pi-pencil"></i></button>
 							<p-dialog header="Editar Sindico" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
 								<div class="col-12">
 									<div class="card">
 										<div class="p-fluid p-formgrid grid">
 											<div class="field col-12 md:col-4">
 												<label htmlFor="firstname2"> Nome </label>
-												<input class="text-gray-800" pInputText [(ngModel)]="relative.nome_pessoa" id="firstname2" placeholder="" type="text"/>
+												<input class="text-gray-800" pInputText [(ngModel)]="sindico.nome_sindico" id="firstname2" placeholder="" type="text"/>
 											</div>
+											<div class="field col-12 md:col-4">
+												<label htmlFor="firstname2"> BI </label>
+												<input class="text-gray-800" pInputText [(ngModel)]="sindico.bi_sindico" id="firstname2" placeholder="" type="text"/>
+											</div>
+											<div class="field col-12 md:col-4">
+												<label htmlFor="firstname2"> E-mail </label>
+												<input class="text-gray-800" pInputText [(ngModel)]="sindico.email_sindico" id="firstname2" placeholder="" type="text"/>
+											</div>
+											<div class="field col-12 md:col-4">
+												<label htmlFor="firstname2"> Telefone </label>
+												<input class="text-gray-800" pInputText [(ngModel)]="sindico.telefone_sindico" id="firstname2" placeholder="" type="text"/>
+											</div>
+											<div class="field col-12 md:col-8 my-4">
+												<p-button icon="pi pi-save" label="Salvar" (click)="salvarEdicao()" [rounded]="true" severity="success"></p-button>
+											</div>
+											
 											<!-- Other input fields -->
 										</div>
 									</div>
 									<p-button icon="pi pi-times" label="Fechar a Tela" (click)="showModal = false" [rounded]="true" severity="danger"></p-button>
 								</div>
 							</p-dialog>
-							<button pButton (click)="eliminarPessoa(relative.id_sindico)" class="p-button-warning"><i class="pi pi-trash"></i></button>
+							<button pButton (click)="eliminarPessoa(sindico.id_sindico)" class="p-button-warning"><i class="pi pi-trash"></i></button>
 						</td>
 					</tr>
 				</ng-template>

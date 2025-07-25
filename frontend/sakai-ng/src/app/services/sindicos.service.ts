@@ -19,6 +19,10 @@ export class SindicosService {
     return this.http.post<Sindico[]>(`${this.SERVER_URL}/cadastrar/sindico`,sindico)
   }
 
+  editar(id_sindico:any, sindico : any): Observable<{mensagem:any}>{
+    return this.http.put<{mensagem:any}>(`${this.SERVER_URL}/editar/sindico/${id_sindico}`, sindico)
+  }
+
 }
 
 export interface Sindico {

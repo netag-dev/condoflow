@@ -72,6 +72,15 @@ export class ButtonDemoComponent implements OnInit {
        })
        }  
 
+       getEmployee(sindico: any){
+        this.sindico = {...sindico}
+        console.log(this.sindico)
+       }
+
+       salvarEdicao(){
+        alert("Dados salvados com sucesso")
+       }
+
     carregarEndereco() {
         this.http.get<any[]>('http://192.168.1.59:5000/endereco').subscribe(
           (resultado) => {
@@ -136,7 +145,10 @@ export class ButtonDemoComponent implements OnInit {
                 }
               }
             );
-          }  
+          } 
+
+
+      
      
      
     ngOnInit() {
