@@ -8,7 +8,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -27,8 +27,9 @@ import { InputMaskModule } from 'primeng/inputmask';
 		DialogModule, 
 		FormsModule,
 		HttpClientModule, 
-		InputMaskModule
-	],
+		InputMaskModule,
+		ReactiveFormsModule
+	  ],
 	declarations: [ButtonDemoComponent]
 })
 export class ButtonDemoModule { }

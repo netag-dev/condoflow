@@ -11,37 +11,25 @@
 					<div class="p-fluid p-formgrid grid">
 						<div class="field col-12 md:col-4">
 							<label htmlFor="firstname2"> Nome </label>
-							<input pInputText id="firstname2" [(ngModel)]="sindico.nome_pessoa" placeholder="Nome" type="text" />
+							<input pInputText id="firstname2" [(ngModel)]="sindico.nome_sindico" placeholder="Nome" type="text" />
 						</div>
 						<div class="field col-12 md:col-4">
 							<label htmlFor="lastname2"> Contacto </label>
-							<p-inputMask mask="999999999" [(ngModel)]="sindico.telefone_pessoa" placeholder="(+244) 999-999-999"></p-inputMask>
+							<p-inputMask mask="999999999" [(ngModel)]="sindico.telefone_sindico" placeholder="(+244) 999-999-999"></p-inputMask>
 						 
 						 </div>
 						<div class="field col-12 md:col-4">
 							<label htmlFor="address"> BI </label>
-							<input pInputText id="address" [(ngModel)]="sindico.bi_pessoa" placeholder="Bilhete de Identidade" rows="4" />
+							<input pInputText id="address" [(ngModel)]="sindico.bi_sindico" placeholder="Bilhete de Identidade" rows="4" />
 						</div>
 
 						<div class="field col-12 md:col-4">
-                             <label class="text-gray-700" for="status"> Endereço: * </label>
+                             <label class="text-gray-700" for="status"> E-mail: * </label>
 							
-							 <select style="width:37vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="sindico.endereco_id">
-                               <option *ngFor="let endereco of enderecos[0];" [value]="endereco.id_endereco"> {{ endereco.nome_endereco }} </option>
-							  
-								</select>
-
+							 <input pInputText id="address" [(ngModel)]="sindico.email_sindico" placeholder="E-mail" rows="4" />
 							</div>
 						
-						<div class="field col-12 md:col-4">
-							<label class="text-gray-700" for="status"> Estado: * </label>
-							
-							<select style="width:37vh;height:5.5vh; border-radius: 4px; border:1px solid #ddd;" [(ngModel)]="sindico.status_id">
-                               <option *ngFor="let statu of status[0]" [value]="statu.id_status"> {{ statu.nome_status }} </option>
-							 </select>
-
-                         </div>
-						<div class="col-12 md:col-6">
+						<div class="col-12 md:col-4 my-4">
 						 <button pButton (click)="addSindico()" class="p-button-rounded p-button-success" style="text-transform: uppercase;" label="Salvar"></button>
 						</div>
 												 
@@ -115,7 +103,7 @@
 						<td> {{ relative.email_sindico }} </td>
 						<td>
 							<button pButton class="mr-2 p-button-success" (click)="getEmployee(relative.id_sindico)" (click)="showModal = true"><i class="pi pi-pencil"></i></button>
-							<p-dialog header="Editar Usuário" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
+							<p-dialog header="Editar Sindico" [(visible)]="showModal" [modal]="true" [closable]="true" [responsive]="true" [style]="{width: '50%', height: '60%'}">
 								<div class="col-12">
 									<div class="card">
 										<div class="p-fluid p-formgrid grid">

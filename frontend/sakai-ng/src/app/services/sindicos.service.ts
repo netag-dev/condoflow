@@ -14,15 +14,17 @@ export class SindicosService {
   public getSindicos(): Observable<Sindico[]>{
     return this.http.get<Sindico[]>(`${this.SERVER_URL}/lista/sindico`);
   }
+  
+  addSindico(sindico: any): Observable<any>{
+    return this.http.post<Sindico[]>(`${this.SERVER_URL}/cadastrar/sindico`,sindico)
+  }
 
 }
 
 export interface Sindico {
-  id_pessoa: number;
-  nome_pessoa: string;
-  telefone_pessoa: string;
-  endereco_id: number;
-  status_id: number;
-  bi_pessoa: string;
-
+  id_sindico: number;
+  telefone_sindico: string;
+  bi_sindico: string;
+  email_sindico: string;
+  senha_sindico : string;
 }

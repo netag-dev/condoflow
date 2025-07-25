@@ -4,6 +4,9 @@ import { MenuItem } from 'primeng/api';
 import { SindicosService, Sindico } from 'src/app/services/sindicos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+
 
 @Component({
     templateUrl: './buttondemo.component.html'
@@ -23,8 +26,9 @@ export class ButtonDemoComponent implements OnInit {
     searchQuery: string = '';
     rowsPerPageOptions: number[] = [10, 25, 50];
     showModal: boolean = false; 
+    formSindico !: FormGroup
     
-    constructor(private router: Router,private sindicoService: SindicosService, private http:HttpClient) {}
+    constructor(private router: Router,private sindicoService: SindicosService, private http:HttpClient, private fb : FormBuilder) {}
     
     cols: any[] = [
         { field: 'id_pessoa', header: 'Id' },
@@ -36,50 +40,36 @@ export class ButtonDemoComponent implements OnInit {
       ];
 
       sindico: any = {
-        "id_pessoa": 0,
-        "nome_pessoa": "",
-        "telefone_pessoa": "",
-        "endereco_id": 0,
-        "status_id": 0,
-        "bi_pessoa": ""
+        "id_sindico": 0,
+        "telefone_sindico": "",
+        "bi_sindico": "",
+        "email_sindico": "",
+        "senha_sindico": "",
+      
       };
+
+      
 
       toggleNewDiv() {
         this.isNewDiv = !this.isNewDiv;
       }
 
       addSindico() {
-        if(!this.sindico.nome_pessoa ||
-        !this.sindico.telefone_pessoa || 
-        !this.sindico.endereco_id || 
-        !this.sindico.status_id ){
-        this.mostrarMensagemVazio();
-         return; 
-          }
-         this.http.post('http://192.168.1.59:5000/cadastrar/sindico', this.sindico).subscribe(
-           (response: any) => {
-             if (response.mensagem) {
-               this.mostrarMensagemSucesso();
-                setTimeout(() => {
-                 window.location.reload();
-                }, 2000)
-             } else {
-              //  this.mostrarMensagemErro();
-             }
-           },
-           (error: any) => {
-             if (error.status === 400) {
-               this.mostrarMensagemClient();
-             } else if (error.status === 404) {
-               this.mostrarMensagemPage();
-               this.router.navigateByUrl('/');
-             } else if (error.status === 500) {
-                   this.mostrarMensagemInfo();
-             } else {
-               //this.mostrarMensagemErro();
-             }
-           }
-         );
+       this.sindicoService.addSindico(this.sindico).subscribe({
+        next:(dados)=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'Cadastro de Sindico',
+            text: dados.mensagem,
+            confirmButtonText: 'Ok'
+         })
+         this.carregarSindicos()
+         this.isNewDiv = false
+        },
+        error:(error)=>{
+          console.error(error)
+        }
+       })
        }  
 
     carregarEndereco() {
